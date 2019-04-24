@@ -12,6 +12,6 @@ app.use((ctx, next) => {
 app.start((ctx) => ctx.reply('Welcome'));
 app.command('test', (ctx) => ctx.reply('Test'));
 
-app.use((ctx) => ctx.reply(ctx.message.text + " сказал " + ctx.message.from));
+app.use((ctx) => ctx.reply(ctx.message.text + " сказал " + ctx.message.from.last_name + " " + ctx.message.from.first_name));
 
 app.launch();
