@@ -1,5 +1,5 @@
 const Telegraf = require('telegraf');
-const app = new Telegraf('899741222:AAFV4NVV9B13QgG6quUuk0T1HI-jA1LYQh0');
+const app = new Telegraf(process.env.BOT_TOKEN);
 
 app.use((ctx, next) => {
   const start = new Date()
@@ -9,5 +9,6 @@ app.use((ctx, next) => {
   });
 });
 
+app.start((ctx) => ctx.reply('Welcome!'))
 app.command('test', (ctx) => ctx.reply('Test'));
 app.launch();
