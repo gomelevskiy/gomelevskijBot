@@ -12,4 +12,6 @@ app.use((ctx, next) => {
 app.start((ctx) => ctx.reply('Welcome'));
 app.command('test', (ctx) => ctx.reply('Test'));
 
+app.on('text', (ctx) => ctx.reply(ctx.message + " сказал Петух"));
+
 app.launch();
