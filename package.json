@@ -2,9 +2,6 @@
   "name": "bot",
   "version": "1.0.0",
   "description": "My personal bot helper",
-  "engines": {
-    "node": "10.x"
-  },
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
@@ -17,23 +14,12 @@
   "keywords": [
     "test",
     "project",
-    "node",
-    "heroku",
-    "express"
+    "heroku"
   ],
   "author": "Gomelevskij",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gomelevskiy/gomelevskijBot/issues"
-  },
-  "dependencies": {
-    "ejs": "^2.5.6",
-    "express": "^4.15.2",
-    "pg": "^7.10.0"
-  },
-  "devDependencies": {
-    "request": "^2.81.0",
-    "tape": "^4.7.0"
   },
   "homepage": "https://github.com/gomelevskiy/gomelevskijBot#readme"
 }
