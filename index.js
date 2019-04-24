@@ -12,3 +12,8 @@ app.use((ctx, next) => {
 app.on('text', (ctx) => ctx.reply('Hello '));
 app.command('test', (ctx) => ctx.reply('Test');
 app.launch();
+
+let port = process.env.Port || 8000;
+server.listen(port, function() {
+    console.log('App us running on port ' + port);
+});
