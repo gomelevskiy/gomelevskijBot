@@ -1,17 +1,40 @@
-const Telegraf = require('telegraf');
+const express = require('express')
+const path = require('path')
+const PORT = process.env.PORT || 5000
 
-const app = new Telegraf('BOT_TOKEN=899741222:AAFV4NVV9B13QgG6quUuk0T1HI-jA1LYQh0', {
-  telegram: { agent: socksAgent }
+express()
+  .use(express.static(path.join(__dirname, 'public')))
+  .set('views', path.join(__dirname, 'views'))
+  .set('view engine', 'ejs')
+  .get('/', (req, res) => res.render('pages/index'))
+  .get('/cool', (req, res) => res.send(cool()))
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+  .get('/times', (req, res) => res.send(showTimes()))
+
+  showTimes = () => {
+  let result = ''
+  const times = process.env.TIMES || 5
+  for (i = 0; i < times; i++) {
+    result += i + ' '
+  }
+  return result;
+}
+
+const { Pool } = require('pg');
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: true
 });
 
-app.use((ctx, next) => {
-  const start = new Date();
-  return next(ctx).then(() => {
-    const ms = new Date() - start;
-    console.log('Response time %sms', ms);
-  });
-});
-
-app.on('start', (ctx) => ctx.reply('Welcome, my dear friend!'));
-app.on('test', (ctx) => ctx.reply('Test me, please!'));
-app.launch();
+.get('/db', async (req, res) => {
+    try {
+      const client = await pool.connect()
+      const result = await client.query('SELECT * FROM test_table');
+      const results = { 'results': (result) ? result.rows : null};
+      res.render('pages/db', results );
+      client.release();
+    } catch (err) {
+      console.error(err);
+      res.send("Error " + err);
+    }
+  })
