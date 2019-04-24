@@ -9,7 +9,7 @@ app.use((ctx, next) => {
   });
 });
 
-app.command('test', (ctx) => ctx.reply('Test me, please!'));
+app.on('text', (ctx) => ctx.reply('Hello'));
 app.launch();
 
 let port = process.env.PORT || 8000;
