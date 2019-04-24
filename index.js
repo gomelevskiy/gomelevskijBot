@@ -1,3 +1,4 @@
+console.log("basic");
 const Telegraf = require('telegraf');
 const app = new Telegraf(process.env.BOT_TOKEN);
 
@@ -12,8 +13,3 @@ app.use((ctx, next) => {
 app.on('start', (ctx) => ctx.reply('Welcome, my dear friend!'));
 app.on('test', (ctx) => ctx.reply('Test me, please!'));
 app.launch();
-
-let port = process.env.PORT || 8000;
-server.listen(port, function() {
-    console.log("App is running on port " + port);
-});
