@@ -12,14 +12,9 @@ app.use((ctx, next) => {
 app.start((ctx) => ctx.reply('Welcome'));
 app.command('test', (ctx) => ctx.reply('Test'));
 
-// проверяем чат и если введена команда "/start", выводим сообщение
-app.onText(/\/hello/, (msg, match) => {
-    // Составляем сообщение, которое будет содержать имя и фамилию того,
-    // кто взаимодействует с ботом
-    var message = 'Привет ' + msg.chat.last_name + ' ' + msg.chat.first_name;
+app.on('text', (msg, match) => {
 
-    // отсылаем сообщение, первым параметром передавая id чата,
-    // а вторым уже само сообщение
+    var message = 'Привет ' + msg.chat.last_name + ' ' + msg.chat.first_name;
     app.sendMessage(msg.chat.id, message);
 });
 
