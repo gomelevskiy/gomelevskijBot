@@ -9,6 +9,5 @@ app.use((ctx, next) => {
   });
 });
 
-app.on('text', (ctx) => ctx.reply('Hello '));
 app.command('test', (ctx) => ctx.reply('Test'));
 app.launch();
