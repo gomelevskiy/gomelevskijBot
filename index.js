@@ -10,5 +10,5 @@ app.use((ctx, next) => {
 });
 
 app.start((ctx) => ctx.reply('Welcome'));
-app.command('test', (ctx) => ctx.reply('Test'));
 app.launch();
+app.command('test', (ctx) => ctx.reply('Test'));
