@@ -14,4 +14,8 @@ app.command('test', (ctx) => ctx.reply('Test'));
 
 app.use((ctx) => ctx.reply(ctx.message + " сказал Петух"));
 
+bot.use((ctx) => {
+  console.log(ctx.message)
+});
+
 app.launch();
