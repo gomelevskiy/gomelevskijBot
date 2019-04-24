@@ -15,7 +15,7 @@ app.command('test', (ctx) => ctx.reply('Test'));
 app.on('text', (msg, match) => {
 
     var message = 'Привет ' + msg.chat.last_name + ' ' + msg.chat.first_name;
-    app.sendMessage(msg.chat.id, message);
+    app.reply(msg.chat.id, message);
 });
 
 app.launch();
