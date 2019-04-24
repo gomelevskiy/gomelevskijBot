@@ -1,7 +1,5 @@
 const Telegraf = require('telegraf');
-const app = new Telegraf(process.env.BOT_TOKEN, {
-  telegram: { agent: socksAgent }
-});
+const app = new Telegraf(process.env.BOT_TOKEN);
 
 app.use((ctx, next) => {
   const start = new Date();
