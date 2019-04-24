@@ -12,10 +12,4 @@ app.use((ctx, next) => {
 app.start((ctx) => ctx.reply('Welcome'));
 app.command('test', (ctx) => ctx.reply('Test'));
 
-app.on('text', (msg, match) => {
-
-    var message = 'Привет ' + msg.chat.last_name + ' ' + msg.chat.first_name;
-    app.reply(msg.chat.id, message);
-});
-
 app.launch();
