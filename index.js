@@ -14,4 +14,18 @@ app.hears('hi', ctx => {
  return ctx.reply(msg);
 });
 
+let options = {
+  reply_markup: JSON.stringify({
+    inline_keyboard: [
+      [{ text: 'Кнопка 1', callback_data: '1' }],
+      [{ text: 'Кнопка 2', callback_data: 'data 2' }],
+      [{ text: 'Кнопка 3', callback_data: 'text 3' }]
+    ]
+  })
+};
+
+app.onText(/\/start_test/, function (msg, match) {
+  app.sendMessage(msg.chat.id, 'Выберите любую кнопку:', options);
+});
+
 app.launch();
