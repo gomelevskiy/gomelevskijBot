@@ -25,14 +25,12 @@ menu.simpleButton('Да ✅', 'a', {
   joinLastRow: true,
   doFunc: ctx => {
   	ctx.reply('Правильный выбор 👍')
-  },
-  hide: () => mainMenuToggle
+  }
 });
 
 menu.simpleButton('Нет ❌', 'b', {
   joinLastRow: true,
-  doFunc: ctx => ctx.reply('Не правильный выбор 👎'),
-  hide: () => mainMenuToggle
+  doFunc: ctx => ctx.reply('Не правильный выбор 👎')
 });
 
 app.use(menu.init());
