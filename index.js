@@ -4,7 +4,6 @@ const TelegrafInlineMenu = require('telegraf-inline-menu');
 
 // init app & menu
 const app = new Telegraf(process.env.BOT_TOKEN);
-const menu = new TelegrafInlineMenu(ctx => `Hey ${ctx.from.first_name}!`);
 
 app.start((ctx) => ctx.reply("Welcome, " + ctx.message.from.last_name + " " + ctx.message.from.first_name));
 app.command('test', (ctx) => ctx.reply('Test'));
@@ -28,7 +27,8 @@ app.command('go', ctx => {
 });
 
 
-let welcomeTest = 'Привет 👋,\n Готов сыграть со мной в игру ❔❔❔';
+let welcomeTest = 'Привет, ${ctx.from.first_name} 👋\n Готов сыграть со мной в игру ❔❔❔';
+const menu = new TelegrafInlineMenu(ctx => welcomeTest);
 menu.setCommand('menu');
 menu.simpleButton('Да ✔️', 'a', {
   joinLastRow: true,
