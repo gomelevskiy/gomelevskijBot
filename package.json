@@ -24,7 +24,7 @@
   "homepage": "https://github.com/gomelevskiy/gomelevskijBot#readme",
   "dependencies": {
     "dotenv": "^7.0.0",
-    "lambda-telegram-bot-handler": "^0.2.0",
-    "telegraf": "^3.29.0"
+    "telegraf": "^3.29.0",
+    "telegraf-inline-menu": "^3.5.2"
   }
 }
