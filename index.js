@@ -29,7 +29,8 @@ menu.simpleButton('Да ✅', 'a', {
 
 menu.simpleButton('Нет ❌', 'b', {
   joinLastRow: true,
-  hide: ctx => ctx.reply('Не правильный выбор 👎'),
+  doFunc: ctx => ctx.reply('Не правильный выбор 👎'),
+  hide: () => mainMenuToggle
 });
 
 app.use(menu.init());
