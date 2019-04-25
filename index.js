@@ -31,13 +31,13 @@ const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name}
 menu.setCommand('menu');
 menu.simpleButton('Да ✔️', 'a', {
   joinLastRow: true,
-  doFunc: ctx => ctx.reply('Погнали дальше 👍')
+  doFunc: ctx => ctx.reply('Погнали дальше 👍'),
   hide: () => mainMenuToggle
 });
 
 menu.simpleButton('Нет ✖️', 'b', {
   joinLastRow: true,
-  doFunc: ctx => ctx.reply('Не правильный выбор 👎')
+  doFunc: ctx => ctx.reply('Не правильный выбор 👎'),
   hide: () => mainMenuToggle
 });
 
