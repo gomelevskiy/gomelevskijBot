@@ -27,23 +27,20 @@ app.command('go', ctx => {
  return ctx.reply(msg);
 });
 
-app.command('menu', ctx => {
 
-	let welcomeTest = 'Привет 👋,\n Готов сыграть со мной в игру ❔❔❔';
-
-	menu.simpleButton('Да ✔️', 'a', {
-	  joinLastRow: true,
-	  doFunc: ctx => ctx.reply('👍')
-	});
-
-	menu.simpleButton('Нет ✖️', 'b', {
-	  joinLastRow: true,
-	  doFunc: ctx => ctx.reply('👎')
-	});
-
-	app.use(menu.init());
-
+let welcomeTest = 'Привет 👋,\n Готов сыграть со мной в игру ❔❔❔';
+menu.setCommand('menu');
+menu.simpleButton('Да ✔️', 'a', {
+  joinLastRow: true,
+  doFunc: ctx => ctx.reply('👍')
 });
+
+menu.simpleButton('Нет ✖️', 'b', {
+  joinLastRow: true,
+  doFunc: ctx => ctx.reply('👎')
+});
+
+app.use(menu.init());
 
 app.on('message', ctx => ctx.reply('Ты пёс!'));
 
