@@ -25,6 +25,6 @@ app.command('go', ctx => {
  return ctx.reply(msg);
 });
 
-bot.on('text', ctx => ctx.reply('Ты пес'));
+bot.on('message', ctx => ctx.reply('Ты пес'));
 
 app.launch();
