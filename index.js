@@ -26,16 +26,17 @@ app.command('go', ctx => {
  return ctx.reply(msg);
 });
 
+let welcomeTest = 'Привет 👋, ' + ctx.from.first_name + '\n Готов сыграть со мной в игру ❔❔❔';
 const menu = new TelegrafInlineMenu(ctx => `Hey ${ctx.from.first_name}!`);
 menu.setCommand('menu');
-menu.simpleButton('Первый вариант', 'a', {
-  doFunc: ctx => ctx.reply('👍'),
-  joinLastRow: true
+menu.simpleButton('Да ✔️', 'a', {
+  joinLastRow: true,
+  doFunc: ctx => ctx.reply('👍')
 });
 
-menu.simpleButton('Второй вариант', 'b', {
-  doFunc: ctx => ctx.reply('👎'),
-  joinLastRow: true
+menu.simpleButton('Нет ✖️', 'b', {
+  joinLastRow: true,
+  doFunc: ctx => ctx.reply('👎')
 });
 
 app.use(menu.init());
