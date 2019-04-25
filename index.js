@@ -29,7 +29,7 @@ app.command('go', ctx => {
 const menu = new TelegrafInlineMenu(ctx => `Hey ${ctx.from.first_name}!`);
 menu.setCommand('menu');
 menu.simpleButton('I am excited!', 'a', {
-  doFunc: ctx => ctx.reply('As am I!')
+  doFunc: ctx => ctx.reply('As am I 👍!')
 });
 
 app.use(menu.init());
