@@ -29,7 +29,7 @@ app.command('go', ctx => {
 
 app.command('menu', ctx => {
 
-	let welcomeTest = 'Привет 👋, ' + ctx.message.first_name + '\n Готов сыграть со мной в игру ❔❔❔';
+	let welcomeTest = 'Привет 👋,\n Готов сыграть со мной в игру ❔❔❔';
 
 	menu.simpleButton('Да ✔️', 'a', {
 	  joinLastRow: true,
