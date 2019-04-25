@@ -26,9 +26,7 @@ app.command('go', ctx => {
  return ctx.reply(msg);
 });
 
-
-let welcomeTest = 'Привет, ${ctx.from.first_name} 👋\n Готов сыграть со мной в игру ❔❔❔';
-const menu = new TelegrafInlineMenu(ctx => welcomeTest);
+const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\n Готов сыграть со мной в игру ❔❔❔`);
 menu.setCommand('menu');
 menu.simpleButton('Да ✔️', 'a', {
   joinLastRow: true,
