@@ -1,7 +1,7 @@
 // includes
 const Telegraf = require('telegraf');
 const TelegrafInlineMenu = require('telegraf-inline-menu');
-const menu = new TelegrafInlineMenu(ctx => `Hey ${ctx.from.first_name}!`)
+
 // init my telegram
 const app = new Telegraf(process.env.BOT_TOKEN);
 
@@ -24,12 +24,15 @@ app.command('go', ctx => {
 	msg = 'Сказал мне ' + ctx.message.text;
 
  return ctx.reply(msg);
-	menu.simpleButton('I am excited!', 'a', {
-	  doFunc: ctx => ctx.reply('As am I!')
-	});
-	app.use(menu.init());
-	app.startPolling();
 });
+
+const menu = new TelegrafInlineMenu(ctx => `Hey ${ctx.from.first_name}!`);
+menu.setCommand('menu');
+menu.simpleButton('I am excited!', 'a', {
+  doFunc: ctx => ctx.reply('As am I!');
+});
+
+app.use(menu.init());
 
 app.on('message', ctx => ctx.reply('Ты пёс!'));
 
