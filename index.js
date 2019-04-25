@@ -2,8 +2,9 @@
 const Telegraf = require('telegraf');
 const TelegrafInlineMenu = require('telegraf-inline-menu');
 
-// init my telegram
+// init app & menu
 const app = new Telegraf(process.env.BOT_TOKEN);
+const menu = new TelegrafInlineMenu(ctx => `Hey ${ctx.from.first_name}!`);
 
 app.start((ctx) => ctx.reply("Welcome, " + ctx.message.from.last_name + " " + ctx.message.from.first_name));
 app.command('test', (ctx) => ctx.reply('Test'));
@@ -26,20 +27,23 @@ app.command('go', ctx => {
  return ctx.reply(msg);
 });
 
-let welcomeTest = 'Привет 👋, ' + ctx.from.first_name + '\n Готов сыграть со мной в игру ❔❔❔';
-const menu = new TelegrafInlineMenu(ctx => `Hey ${ctx.from.first_name}!`);
-menu.setCommand('menu');
-menu.simpleButton('Да ✔️', 'a', {
-  joinLastRow: true,
-  doFunc: ctx => ctx.reply('👍')
-});
+app.command('menu', ctx => {
 
-menu.simpleButton('Нет ✖️', 'b', {
-  joinLastRow: true,
-  doFunc: ctx => ctx.reply('👎')
-});
+	let welcomeTest = 'Привет 👋, ' + ctx.from.first_name + '\n Готов сыграть со мной в игру ❔❔❔';
 
-app.use(menu.init());
+	menu.simpleButton('Да ✔️', 'a', {
+	  joinLastRow: true,
+	  doFunc: ctx => ctx.reply('👍')
+	});
+
+	menu.simpleButton('Нет ✖️', 'b', {
+	  joinLastRow: true,
+	  doFunc: ctx => ctx.reply('👎')
+	});
+
+	app.use(menu.init());
+
+});
 
 app.on('message', ctx => ctx.reply('Ты пёс!'));
 
