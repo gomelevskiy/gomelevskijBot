@@ -29,11 +29,13 @@ app.command('go', ctx => {
 const menu = new TelegrafInlineMenu(ctx => `Hey ${ctx.from.first_name}!`);
 menu.setCommand('menu');
 menu.simpleButton('Первый вариант', 'a', {
-  doFunc: ctx => ctx.reply('👍')
+  doFunc: ctx => ctx.reply('👍'),
+  joinLastRow: true
 });
 
 menu.simpleButton('Второй вариант', 'b', {
-  doFunc: ctx => ctx.reply('👎')
+  doFunc: ctx => ctx.reply('👎'),
+  joinLastRow: true
 });
 
 app.use(menu.init());
