@@ -24,17 +24,29 @@ menu.setCommand('menu');
 menu.simpleButton('Да ✅', 'a', {
   joinLastRow: true,
   doFunc: ctx => {
-  	ctx.reply('Правильный выбор 👍')
+  	if( mainMenuToggle == false ) {
+	  	mainMenuToggle = true;
+	  	ctx.reply('Правильный выбор 👍');
+  	}
   }
 });
 
 menu.simpleButton('Нет ❌', 'b', {
   joinLastRow: true,
-  doFunc: ctx => ctx.reply('Не правильный выбор 👎')
+  doFunc: ctx => {
+  	if( mainMenuToggle == false ) {
+			mainMenuToggle = true;
+	  	ctx.reply('Не правильный выбор 👎');
+  	}
+  }
 });
 
 app.use(menu.init());
 
 app.on('message', ctx => ctx.reply('Ты пёс!'));
+
+app.catch(error => {
+  console.log('telegraf error', error.response, error.parameters, error.on || error);
+});
 
 app.launch();
