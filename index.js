@@ -41,7 +41,7 @@ menu.setCommand('menu');
 menu.simpleButton('Да ✅', 'a', {
   joinLastRow: true,
   doFunc: ctx => {
-  	ctx.reply(questions);
+  	ctx.reply(questions.length);
   }
 });
 
