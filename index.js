@@ -18,7 +18,37 @@ app.hears('hi', ctx => {
  return ctx.reply(msg);
 });
 
-let mainMenuToggle = false;
+let questions = [
+	{
+		tittle: "В каком городе Индии расположен мавзолей-мечеть Тадж-Махал?",
+		options = [
+			'Агра',
+			'Мубаи',
+			'Дели'
+		],
+		answer: '1'
+	},
+	{
+		tittle: "Какой город является столицей США?",
+		options= [
+			'Нью-Йорк',
+			'Вашингтон',
+			'Бостон'
+		],
+		answer: '2'
+	},
+	{
+		tittle: "В какой европейской стране находится город Бремен?",
+		options = [
+			'Франция',
+			'Италия',
+			'Германия',
+			'Испания'
+		],
+		answer: '3'
+	}
+];
+
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nГотов сыграть со мной в игру ❔`);
 menu.setCommand('menu');
 menu.simpleButton('Да ✅', 'a', {
@@ -26,7 +56,7 @@ menu.simpleButton('Да ✅', 'a', {
   doFunc: ctx => {
   	if( mainMenuToggle == false ) {
 	  	mainMenuToggle = true;
-	  	ctx.reply('Правильный выбор 👍');
+	  	ctx.reply(questions);
   	}
   }
 });
