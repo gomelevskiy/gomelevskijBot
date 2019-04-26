@@ -41,20 +41,14 @@ menu.setCommand('menu');
 menu.simpleButton('Да ✅', 'a', {
   joinLastRow: true,
   doFunc: ctx => {
-  	if( mainMenuToggle == false ) {
-	  	mainMenuToggle = true;
-	  	ctx.reply(questions);
-  	}
+  	ctx.reply(questions);
   }
 });
 
 menu.simpleButton('Нет ❌', 'b', {
   joinLastRow: true,
   doFunc: ctx => {
-  	if( mainMenuToggle == false ) {
-			mainMenuToggle = true;
-	  	ctx.reply('Не правильный выбор 👎');
-  	}
+  	ctx.reply('Не правильный выбор 👎');
   }
 });
 
