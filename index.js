@@ -25,7 +25,7 @@ app.hears('hi', ctx => {
 
 app.hears('trello', ctx => {
 
-  let url = "https://api.trello.com/1/boards/"+ paramTrello.page +"?fields=id&key="+ paramTrello.key +"&token=" + paramTrello.token;
+  let url = "https://api.trello.com/1/boards/"+ paramTrello.page +"?fields=all&key="+ paramTrello.key +"&token=" + paramTrello.token;
 
   $.ajax({
     type: 'GET',
