@@ -1,6 +1,11 @@
 // includes
 const Telegraf = require('telegraf');
 const TelegrafInlineMenu = require('telegraf-inline-menu');
+const paramTrello = {
+  page: "AvJmy7iN",
+  key: "af5c385fa0bbcca4ef1d6c0692a95531",
+  token: "2213c6ce8516841f60b276fe1c4431096b7b9333bcede41f05a791f98b90e5d9"
+};
 
 // init app & menu
 const app = new Telegraf(process.env.BOT_TOKEN);
@@ -20,10 +25,18 @@ app.hears('hi', ctx => {
 
 app.hears('trello', ctx => {
 
-  let msg = '';
-  msg = 'Шел бы ты домой, пес!';
+  let url = "https://api.trello.com/1/boards/"+ paramTrello.page +"?fields=id&key="+ paramTrello.key +"&token=" + paramTrello.token;
 
- return ctx.reply(msg);
+  $.ajax({
+    type: 'GET',
+    url: url
+  }).done(function(data) {
+
+    return ctx.reply(data);
+
+  }).fail(function() {
+    return ctx.reply("Шел бы ты домой..");
+  });
 });
 
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nГотов сыграть со мной в игру ❔`);
