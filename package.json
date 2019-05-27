@@ -24,6 +24,7 @@
   "homepage": "https://github.com/gomelevskiy/gomelevskijBot#readme",
   "dependencies": {
     "dotenv": "^7.0.0",
+    "jquery": "^3.4.1",
     "selenium-webdriver": "^4.0.0-alpha.1",
     "telegraf": "^3.29.0",
     "telegraf-inline-menu": "^3.5.2"
