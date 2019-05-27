@@ -32,7 +32,7 @@ app.hears('trello', ctx => {
     url: url
   }).done(function(data) {
 
-    return ctx.reply(data);
+    return ctx.reply("Получилось!");
 
   }).fail(function() {
     return ctx.reply("Шел бы ты домой..");
