@@ -34,8 +34,9 @@ app.hears('trello', ctx => {
       let msg = '';
       // msg = 'Название темы: ' + body.name;
       // return ctx.reply(msg);
-      console.log('Body: ', body);
-      console.log('Name: ', body.name);
+      let data = body.json;
+      console.log('Body: ', data);
+      console.log('Name: ', data.name);
     }
     if(response.statusCode!==200){
       let msg = '';
