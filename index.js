@@ -1,5 +1,6 @@
 // includes
 const Telegraf = require('telegraf');
+const http = require('request');
 const TelegrafInlineMenu = require('telegraf-inline-menu');
 const paramTrello = {
   page: "AvJmy7iN",
@@ -17,26 +18,31 @@ app.command('test', (ctx) => ctx.reply('Test'));
 
 app.hears('hi', ctx => {
 
-	let msg = '';
-	msg = 'Сказал мне ' + ctx.message.text;
-
- return ctx.reply(msg);
+  let msg = '';
+  msg = 'Сказал мне ' + ctx.message.text;
+  return ctx.reply(msg);
 });
 
 app.hears('trello', ctx => {
 
   let url = "https://api.trello.com/1/boards/"+ paramTrello.page +"?fields=all&key="+ paramTrello.key +"&token=" + paramTrello.token;
-
-  $.ajax({
-    type: 'GET',
-    url: url
-  }).done(function(data) {
-
-    return ctx.reply("Получилось!");
-
-  }).fail(function() {
-    return ctx.reply("Шел бы ты домой..");
+  http.get(url, function (error, response, body) {
+    //не забываем обработать ответ
+    console.log('error:', error);
+    console.log('statusCode:', response && response.statusCode);
+    console.log('body:', body);
+    if(response.statusCode===200){
+      let msg = '';
+      msg = 'Успешно отправлено!';
+      return ctx.reply(msg);
+    }
+    if(response.statusCode!==200){
+      let msg = '';
+      msg = 'Ошибочка произошла!';
+      return ctx.reply(msg);
+    }
   });
+
 });
 
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nГотов сыграть со мной в игру ❔`);
