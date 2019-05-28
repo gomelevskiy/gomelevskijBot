@@ -4,6 +4,7 @@ const http = require('request');
 const TelegrafInlineMenu = require('telegraf-inline-menu');
 const paramTrello = {
   page: "AvJmy7iN",
+  pageId: "5c5d92365e0bd961fa440ef4",
   key: "af5c385fa0bbcca4ef1d6c0692a95531",
   token: "2213c6ce8516841f60b276fe1c4431096b7b9333bcede41f05a791f98b90e5d9"
 };
@@ -25,7 +26,7 @@ app.hears('hi', ctx => {
 
 app.hears('trello', ctx => {
 
-  let url = "https://api.trello.com/1/boards/"+ paramTrello.page +"?fields=all&key="+ paramTrello.key +"&token=" + paramTrello.token;
+  let url = "https://api.trello.com/1/boards/"+ paramTrello.page +"/cards&key="+ paramTrello.key +"&token=" + paramTrello.token;
   http.get(url, function (error, response, body) {
     console.log('error:', error);
     console.log('statusCode:', response && response.statusCode);
