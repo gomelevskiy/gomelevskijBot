@@ -29,17 +29,11 @@ app.hears('trello', ctx => {
   http.get(url, function (error, response, body) {
     console.log('error:', error);
     console.log('statusCode:', response && response.statusCode);
+    console.log('body: ' + body);
     if(response.statusCode===200){
       let msg = '';
       msg = JSON.parse(body);
       return ctx.reply('Название доски: ' + msg.name);
-
-      let urlCards = "https://api.trello.com/1/boards/"+ msg.id + "/cards" +"?fields=all&key="+ paramTrello.key +"&token=" + paramTrello.token;
-      http.get(urlCards, function (error, response, body) {
-        console.log('error:', error);
-        console.log('statusCode:', response && response.statusCode);
-        console.log('body: ' + body);
-      });
     }
     if(response.statusCode!==200){
       let msg = '';
