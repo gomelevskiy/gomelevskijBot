@@ -32,8 +32,8 @@ app.hears('trello', ctx => {
     console.log('statusCode:', response && response.statusCode);
     if(response.statusCode===200){
       let msg = '';
-      msg = 'Название темы: ' + body;
-      return ctx.reply(msg);
+      msg = JSON.parse(body);
+      return ctx.reply(msg.name);
       console.log('Body: ', body);
       console.log('Name: ', body.name);
     }
