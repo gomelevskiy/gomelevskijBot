@@ -95,20 +95,20 @@ function httpGet(url) {
       console.log(body);
     });
 
-    xhr.onload = function() {
-      if (this.status == 200) {
-        resolve(this.response);
-      } else {
-        let error = new Error(this.statusText);
-        error.code = this.status;
-        reject(error);
-      }
-    };
+    // xhr.onload = function() {
+    //   if (this.status == 200) {
+    //     resolve(this.response);
+    //   } else {
+    //     let error = new Error(this.statusText);
+    //     error.code = this.status;
+    //     reject(error);
+    //   }
+    // };
 
-    xhr.onerror = function() {
-      reject(new Error("Network Error"));
-    };
+    // xhr.onerror = function() {
+    //   reject(new Error("Network Error"));
+    // };
 
-    xhr.send();
+    // xhr.send();
   });
 }
