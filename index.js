@@ -35,6 +35,7 @@ menu.simpleButton('Получить колонки', 'a', {
       .then(response => {
         let board = JSON.parse(response);
         // return board.id;
+        console.log(board);
         return ctx.reply('Идентификатор: ' + board.id);
       })
 
