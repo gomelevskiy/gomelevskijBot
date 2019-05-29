@@ -60,7 +60,7 @@ menu.simpleButton('Получить колонки', 'a', {
     // get lists
     httpGet(url)
       .then(response => {
-        let board = JSON.parse(response);
+        let board = response;
         // return board.id;
         return ctx.reply("Лови список!");
       })
