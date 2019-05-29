@@ -34,7 +34,6 @@ menu.simpleButton('Получить колонки', 'a', {
     httpGet(url)
 
       .then(response => {
-        console.log(response);
         let board = JSON.parse(response);
         return board.id;
       })
@@ -73,6 +72,7 @@ function httpGet(url) {
     xhr.onload = function() {
       if (this.status == 200) {
         resolve(this.response);
+        console.log("тут отправляет!");
       } else {
         let error = new Error(this.statusText);
         error.code = this.status;
