@@ -32,7 +32,7 @@ menu.simpleButton('Получить колонки', 'a', {
 
     // get lists
     httpGet(url)
-
+      console.log(url)
       .then(response => {
         let board = JSON.parse(response);
         return board.id;
@@ -83,7 +83,6 @@ function httpGet(url) {
       reject(new Error("Network Error"));
     };
 
-    console.log("тут проходит тоже");
     xhr.send();
   });
 }
