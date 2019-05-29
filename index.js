@@ -34,7 +34,7 @@ menu.simpleButton('Получить колонки', 'a', {
     httpGet(url)
       .then(response => {
         console.log('До преобразования: ' + response);
-        let board = JSON.parse(response);
+        let board = response;
         // return board.id;
         console.log('Доска: ' + board);
         return ctx.reply('Идентификатор: ' + board.id);
