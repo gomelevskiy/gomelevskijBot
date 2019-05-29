@@ -26,8 +26,34 @@ menu.setCommand('trello');
 menu.simpleButton('Получить колонки', 'a', {
   joinLastRow: true,
   doFunc: ctx => {
-  	ctx.reply("Лови список!");
-  }
+  	// ctx.reply("Лови список!");
+
+    let url = '';
+    url = "https://api.trello.com/1/boards/"+ param.page +"?fields=all&key="+ param.key +"&token=" + param.token;
+
+    // get lists
+    httpGet(url)
+
+      .then(response => {
+        let board = JSON.parse(response);
+        return board.id;
+      })
+
+      // lists arr
+      .then(board => {
+        let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ param.key +"&token=" + param.token;
+        httpGet(getList)
+          .then(list => {
+            let data = JSON.parse(list);
+
+            for( var i = 0; i < data.length; i++ ) {
+              console.log(data[i]);
+            }
+            // createList(data);
+            ctx.reply("Лови список!");
+          })
+      })
+    }
 });
 
 app.use(menu.init());
@@ -39,3 +65,29 @@ app.catch(error => {
 });
 
 app.launch();
+
+// FUNCTION GET
+function httpGet(url) {
+
+  return new Promise(function(resolve, reject) {
+
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+
+    xhr.onload = function() {
+      if (this.status == 200) {
+        resolve(this.response);
+      } else {
+        let error = new Error(this.statusText);
+        error.code = this.status;
+        reject(error);
+      }
+    };
+
+    xhr.onerror = function() {
+      reject(new Error("Network Error"));
+    };
+
+    xhr.send();
+  });
+}
