@@ -29,7 +29,6 @@ menu.simpleButton('Получить колонки', 'a', {
 
     let url = '';
     url = "https://api.trello.com/1/boards/"+ paramTrello.page +"?fields=all&key="+ paramTrello.key +"&token=" + paramTrello.token;
-    ctx.reply(url);
 
     // get lists
     httpGet(url)
@@ -45,12 +44,7 @@ menu.simpleButton('Получить колонки', 'a', {
         httpGet(getList)
           .then(list => {
             let data = JSON.parse(list);
-
-            for( var i = 0; i < data.length; i++ ) {
-              console.log(data[i]);
-            }
-            // createList(data);
-            ctx.reply("Лови список!");
+            return ctx.reply("Лови список!");
           })
       })
     }
