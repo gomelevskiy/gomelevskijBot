@@ -24,27 +24,6 @@ app.hears('hi', ctx => {
   return ctx.reply(msg);
 });
 
-app.hears('trello', ctx => {
-
-  let url = "https://api.trello.com/1/boards/"+ paramTrello.page +"/cards&key="+ paramTrello.key +"&token=" + paramTrello.token;
-  http.get(url, function (error, response, body) {
-    console.log('error:', error);
-    console.log('statusCode:', response && response.statusCode);
-    console.log('body: ' + body);
-    if(response.statusCode===200){
-      let msg = '';
-      msg = JSON.parse(body);
-      return ctx.reply('Название доски: ' + msg.name);
-    }
-    if(response.statusCode!==200){
-      let msg = '';
-      msg = 'Ошибочка произошла!';
-      return ctx.reply(msg);
-    }
-  });
-
-});
-
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nГотов сыграть со мной в игру ❔`);
 menu.setCommand('menu');
 menu.simpleButton('Да ✅', 'a', {
