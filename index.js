@@ -61,7 +61,8 @@ menu.simpleButton('Получить колонки', 'a', {
     httpGet(url)
       .then(response => {
         let board = JSON.parse(response);
-        return board.id;
+        // return board.id;
+        return ctx.reply("Лови список!");
       })
 
       // lists arr
