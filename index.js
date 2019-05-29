@@ -107,8 +107,7 @@ function httpGet(url) {
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
 
-      resolve(body);
-      console.log(resolve(body));
+      console.log(body);
     });
 
   });
