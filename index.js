@@ -67,14 +67,12 @@ function httpGet(url) {
 
   return new Promise(function(resolve, reject) {
 
-    let XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
     let xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
 
     xhr.onload = function() {
       if (this.status == 200) {
         resolve(this.response);
-        console.log(this);
       } else {
         let error = new Error(this.statusText);
         error.code = this.status;
