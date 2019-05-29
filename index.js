@@ -8,7 +8,7 @@ const paramTrello = {
   token: "2213c6ce8516841f60b276fe1c4431096b7b9333bcede41f05a791f98b90e5d9"
 };
 
-// init app & menu
+// init app
 const app = new Telegraf(process.env.BOT_TOKEN);
 
 app.start((ctx) => ctx.reply("Welcome, " + ctx.message.from.last_name + " " + ctx.message.from.first_name));
@@ -21,19 +21,12 @@ app.hears('hi', ctx => {
   return ctx.reply(msg);
 });
 
-const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nГотов сыграть со мной в игру ❔`);
-menu.setCommand('menu');
-menu.simpleButton('Да ✅', 'a', {
+const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`);
+menu.setCommand('trello');
+menu.simpleButton('Получить список записей', 'a', {
   joinLastRow: true,
   doFunc: ctx => {
-  	ctx.reply(questions.length);
-  }
-});
-
-menu.simpleButton('Нет ❌', 'b', {
-  joinLastRow: true,
-  doFunc: ctx => {
-  	ctx.reply('Не правильный выбор 👎');
+  	ctx.reply("Лови список!");
   }
 });
 
