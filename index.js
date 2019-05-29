@@ -23,7 +23,7 @@ app.hears('hi', ctx => {
 
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`);
 menu.setCommand('trello');
-menu.simpleButton('Получить список записей', 'a', {
+menu.simpleButton('Получить колонки', 'a', {
   joinLastRow: true,
   doFunc: ctx => {
   	ctx.reply("Лови список!");
