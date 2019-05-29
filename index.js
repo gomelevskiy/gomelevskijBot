@@ -28,7 +28,7 @@ menu.simpleButton('Получить колонки', 'a', {
   doFunc: ctx => {
 
     let url = '';
-    url = "https://api.trello.com/1/boards/"+ param.page +"?fields=all&key="+ param.key +"&token=" + param.token;
+    url = "https://api.trello.com/1/boards/"+ paramTrello.page +"?fields=all&key="+ paramTrello.key +"&token=" + paramTrello.token;
     ctx.reply(url);
 
     // get lists
@@ -41,7 +41,7 @@ menu.simpleButton('Получить колонки', 'a', {
 
       // lists arr
       .then(board => {
-        let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ param.key +"&token=" + param.token;
+        let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ paramTrello.key +"&token=" + paramTrello.token;
         httpGet(getList)
           .then(list => {
             let data = JSON.parse(list);
