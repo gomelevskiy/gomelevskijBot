@@ -67,24 +67,48 @@ function httpGet(url) {
 
   return new Promise(function(resolve, reject) {
 
-    let XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
+    // let XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+    // let xhr = new XMLHttpRequest();
+    // xhr.open('GET', url, true);
 
-    xhr.onload = function() {
-      if (this.status == 200) {
-        resolve(this.response);
-      } else {
-        let error = new Error(this.statusText);
-        error.code = this.status;
-        reject(error);
-      }
-    };
+    // xhr.onload = function() {
+    //   if (this.status == 200) {
+    //     resolve(this.response);
+    //   } else {
+    //     let error = new Error(this.statusText);
+    //     error.code = this.status;
+    //     reject(error);
+    //   }
+    // };
 
-    xhr.onerror = function() {
-      reject(new Error("Network Error"));
-    };
+    // xhr.onerror = function() {
+    //   reject(new Error("Network Error"));
+    // };
 
-    xhr.send();
+    // xhr.send();
+    var request = require("request");
+    var options = { method: 'GET',
+      url: url,
+      qs:
+       { attachments: 'false',
+         attachment_fields: 'all',
+         members: 'false',
+         membersVoted: 'false',
+         checkItemStates: 'false',
+         checklists: 'none',
+         checklist_fields: 'all',
+         board: 'false',
+         list: 'false',
+         pluginData: 'false',
+         stickers: 'false',
+         sticker_fields: 'all',
+         customFieldItems: 'false' } };
+
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+
+      resolve(body);
+    });
+
   });
 }
