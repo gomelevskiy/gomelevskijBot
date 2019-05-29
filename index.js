@@ -26,10 +26,10 @@ menu.setCommand('trello');
 menu.simpleButton('Получить колонки', 'a', {
   joinLastRow: true,
   doFunc: ctx => {
-  	ctx.reply("Лови список!");
 
     let url = '';
     url = "https://api.trello.com/1/boards/"+ param.page +"?fields=all&key="+ param.key +"&token=" + param.token;
+    ctx.reply(url);
 
     // get lists
     httpGet(url)
