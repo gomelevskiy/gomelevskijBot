@@ -67,8 +67,33 @@ function httpGet(url) {
 
   return new Promise(function(resolve, reject) {
 
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
+    // let xhr = new XMLHttpRequest();
+    // xhr.open('GET', url, true);
+
+    let request = require("request");
+
+    let options = { method: 'GET',
+      url: url,
+      qs:
+       { attachments: 'false',
+         attachment_fields: 'all',
+         members: 'false',
+         membersVoted: 'false',
+         checkItemStates: 'false',
+         checklists: 'none',
+         checklist_fields: 'all',
+         board: 'false',
+         list: 'false',
+         pluginData: 'false',
+         stickers: 'false',
+         sticker_fields: 'all',
+         customFieldItems: 'false' } };
+
+    request(options, function (error, response, body) {
+      if (error) throw new Error(error);
+
+      console.log(body);
+    });
 
     xhr.onload = function() {
       if (this.status == 200) {
