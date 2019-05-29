@@ -108,6 +108,7 @@ function httpGet(url) {
       if (error) throw new Error(error);
 
       resolve(body);
+      console.log(body);
     });
 
   });
