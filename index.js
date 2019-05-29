@@ -74,7 +74,6 @@ function httpGet(url) {
     xhr.onload = function() {
       if (this.status == 200) {
         resolve(this.response);
-        console.log("Вариант: " + JSON.parse(this));
       } else {
         let error = new Error(this.statusText);
         error.code = this.status;
