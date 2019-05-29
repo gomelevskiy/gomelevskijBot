@@ -33,7 +33,7 @@ menu.simpleButton('Получить колонки', 'a', {
     // get lists
     httpGet(url)
       .then(response => {
-        let board = response;
+        let board = JSON.parse(response);
         // return board.id;
         return ctx.reply('Идентификатор: ' + board.id);
       })
