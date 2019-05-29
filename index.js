@@ -35,7 +35,7 @@ menu.simpleButton('Получить колонки', 'a', {
       .then(response => {
         let board = response;
         // return board.id;
-        return ctx.reply("Лови список!");
+        return ctx.reply(board);
       })
 
       // lists arr
