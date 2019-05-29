@@ -8,6 +8,33 @@ const paramTrello = {
   token: "2213c6ce8516841f60b276fe1c4431096b7b9333bcede41f05a791f98b90e5d9"
 };
 
+// FUNCTION GET
+function httpGet(url) {
+
+  return new Promise(function(resolve, reject) {
+
+    let XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+
+    xhr.onload = function() {
+      if (this.status == 200) {
+        resolve(this.response);
+      } else {
+        let error = new Error(this.statusText);
+        error.code = this.status;
+        reject(error);
+      }
+    };
+
+    xhr.onerror = function() {
+      reject(new Error("Network Error"));
+    };
+
+    xhr.send();
+  });
+}
+
 // init app
 const app = new Telegraf(process.env.BOT_TOKEN);
 
@@ -59,30 +86,3 @@ app.catch(error => {
 });
 
 app.launch();
-
-// FUNCTION GET
-function httpGet(url) {
-
-  return new Promise(function(resolve, reject) {
-
-    let XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-
-    xhr.onload = function() {
-      if (this.status == 200) {
-        resolve(this.response);
-      } else {
-        let error = new Error(this.statusText);
-        error.code = this.status;
-        reject(error);
-      }
-    };
-
-    xhr.onerror = function() {
-      reject(new Error("Network Error"));
-    };
-
-    xhr.send();
-  });
-}
