@@ -72,7 +72,6 @@ function httpGet(url) {
     xhr.onload = function() {
       if (this.status == 200) {
         resolve(this.response);
-        console.log("тут отправляет!");
       } else {
         let error = new Error(this.statusText);
         error.code = this.status;
@@ -84,6 +83,7 @@ function httpGet(url) {
       reject(new Error("Network Error"));
     };
 
+    console.log("тут проходит тоже");
     xhr.send();
   });
 }
