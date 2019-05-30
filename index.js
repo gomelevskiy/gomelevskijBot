@@ -50,8 +50,7 @@ menu.simpleButton('Получить колонки', 'a', {
     request(options, function (error, response, body) {
       if (error) throw new Error(error);
 
-      console.log('body: ' + body);
-      app.on('message', ctx => ctx.reply(body));
+      console.log('body: ' + response);
     });
     // get lists
     // httpGet(url)
