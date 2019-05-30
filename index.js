@@ -106,7 +106,7 @@ function httpGet(url) {
 
       request(options, function (error, response, body) {
         if (error) throw new Error(error);
-        resolve(body);
+        return body;
     });
 
   });
