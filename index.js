@@ -104,11 +104,9 @@ function httpGet(url) {
          sticker_fields: 'all',
          customFieldItems: 'false' } };
 
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-
-      resolve(body);
-
+      request(options, function (error, response, body) {
+        if (error) throw new Error(error);
+        resolve(body);
     });
 
   });
