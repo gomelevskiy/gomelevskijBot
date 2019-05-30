@@ -51,6 +51,7 @@ menu.simpleButton('Получить колонки', 'a', {
       if (error) throw new Error(error);
 
       console.log('body: ' + body);
+      app.on('message', ctx => ctx.reply(body));
     });
     // get lists
     // httpGet(url)
