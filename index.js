@@ -29,48 +29,26 @@ menu.simpleButton('Получить колонки', 'a', {
 
     let url = '';
     url = "https://api.trello.com/1/boards/"+ paramTrello.page +"?fields=all&key="+ paramTrello.key +"&token=" + paramTrello.token;
-    var request = require("request");
-    var options = { method: 'GET',
-      url: url,
-      qs:
-       { attachments: 'false',
-         attachment_fields: 'all',
-         members: 'false',
-         membersVoted: 'false',
-         checkItemStates: 'false',
-         checklists: 'none',
-         checklist_fields: 'all',
-         board: 'false',
-         list: 'false',
-         pluginData: 'false',
-         stickers: 'false',
-         sticker_fields: 'all',
-         customFieldItems: 'false' } };
 
-    request(options, function (error, response, body) {
-      if (error) throw new Error(error);
-
-      console.log('body: ' + response.id);
-    });
     // get lists
-    // httpGet(url)
-    //   .then(response => {
-    //     console.log('До преобразования: ' + response);
-    //     let board = response;
-    //     // return board.id;
-    //     console.log('Доска: ' + board);
-    //     return ctx.reply('Идентификатор: ' + board.id);
-    //   })
+    httpGet(url)
+      .then(response => {
+        console.log('До преобразования: ' + response);
+        let board = JSON.parse(response);
+        // return board.id;
+        console.log('Доска: ' + board);
+        return ctx.reply('Идентификатор: ' + board.id);
+      })
 
-    //   // lists arr
-    //   .then(board => {
-    //     let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ paramTrello.key +"&token=" + paramTrello.token;
-    //     httpGet(getList)
-    //       .then(list => {
-    //         let data = JSON.parse(list);
-    //         return ctx.reply("Лови список!");
-    //       })
-    //   })
+      // lists arr
+      .then(board => {
+        let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ paramTrello.key +"&token=" + paramTrello.token;
+        httpGet(getList)
+          .then(list => {
+            let data = JSON.parse(list);
+            return ctx.reply("Лови список!");
+          })
+      })
     }
 });
 
@@ -86,47 +64,27 @@ app.launch();
 
 // FUNCTION GET
 function httpGet(url) {
-    // let XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-    // let xhr = new XMLHttpRequest();
-    // xhr.open('GET', url, true);
 
-    // xhr.onload = function() {
-    //   if (this.status == 200) {
-    //     resolve(this.response);
-    //   } else {
-    //     let error = new Error(this.statusText);
-    //     error.code = this.status;
-    //     reject(error);
-    //   }
-    // };
+  return new Promise(function(resolve, reject) {
 
-    // xhr.onerror = function() {
-    //   reject(new Error("Network Error"));
-    // };
+    let XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
 
-    // xhr.send();
-var request = require("request");
-var options = { method: 'GET',
-  url: 'https://api.trello.com/1/cards/id',
-  qs:
-   { attachments: 'false',
-     attachment_fields: 'all',
-     members: 'false',
-     membersVoted: 'false',
-     checkItemStates: 'false',
-     checklists: 'none',
-     checklist_fields: 'all',
-     board: 'false',
-     list: 'false',
-     pluginData: 'false',
-     stickers: 'false',
-     sticker_fields: 'all',
-     customFieldItems: 'false' } };
+    xhr.onload = function() {
+      if (this.status == 200) {
+        resolve(this.response);
+      } else {
+        let error = new Error(this.statusText);
+        error.code = this.status;
+        reject(error);
+      }
+    };
 
-request(options, function (error, response, body) {
-  if (error) throw new Error(error);
+    xhr.onerror = function() {
+      reject(new Error("Network Error"));
+    };
 
-  console.log(body);
-});
-
+    xhr.send();
+  });
 }
