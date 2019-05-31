@@ -33,10 +33,12 @@ menu.simpleButton('Получить колонки', 'a', {
     return ctx.reply(url);
     // get lists
     httpGet(url)
+      return ctx.reply('Тут был');
+
       .then(response => {
-        console.log('Тут мы были!');
+        return ctx.reply('Тут был тоже');
         let board = JSON.parse(response);
-        return ctx.reply(board);
+        // return ctx.reply(board);
       })
 
     }
