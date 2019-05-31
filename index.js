@@ -43,20 +43,11 @@ menu.simpleButton('Получить колонки', 'a', {
         let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ paramTrello.key +"&token=" + paramTrello.token;
         httpGet(getList)
           .then(list => {
-            // return ctx.reply(list[1].name);
-            return ctx.reply('text', {
-              reply_markup: {
-                inline_keyboard: [
-                  [
-                    {text: 'first button in first line', url: 'url'},
-                    {text: 'second button in first line', url: 'url'},
-                  ]
-                ]
-              }
-            });
-            for( let i = 0; i < list.length; i++ ) {
+            return ctx.reply(list[1].name);
+
+            // for( let i = 0; i < list.length; i++ ) {
               // return ctx.reply(list.length);
-            }
+            // }
           })
       })
     }
