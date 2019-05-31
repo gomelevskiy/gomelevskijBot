@@ -1,6 +1,7 @@
 // includes
 const Telegraf = require('telegraf');
 const http = require('request');
+const unirest = require('unirest');
 const TelegrafInlineMenu = require('telegraf-inline-menu');
 const paramTrello = {
   page: "AvJmy7iN",
@@ -34,21 +35,8 @@ menu.simpleButton('Получить колонки', 'a', {
     httpGet(url)
       .then(response => {
         console.log('До преобразования: ' + response);
-        let board = response;
-        // return board.id;
-        console.log('Доска: ' + board);
-        return ctx.reply('Идентификатор: ' + board.id);
       })
 
-      // lists arr
-      .then(board => {
-        let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ paramTrello.key +"&token=" + paramTrello.token;
-        httpGet(getList)
-          .then(list => {
-            let data = JSON.parse(list);
-            return ctx.reply("Лови список!");
-          })
-      })
     }
 });
 
@@ -66,13 +54,19 @@ app.launch();
 function httpGet(url) {
 
   return new Promise(function(resolve, reject) {
+    var req = unirest("GET", url);
 
-    let request = require('request');
-    request(url, function (error, response, body) {
-      if (!error && response.statusCode == 200) {
-        let bodyJson = JSON.parse(body);
-        return bodyJson;
-      }
+    req.headers({
+      "cache-control": "no-cache"
     });
+
+    req.end(function (res) {
+      if (res.error) throw new Error(res.error);
+
+      console.log(res.body);
+    });
+
+    bot.sendMessage(fromId, req);
+
   });
 }
