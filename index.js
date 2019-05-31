@@ -66,7 +66,7 @@ function httpGet(url) {
       console.log(res.body);
     });
 
-    bot.sendMessage(fromId, req);
+    app.sendMessage(fromId, req);
 
   });
 }
