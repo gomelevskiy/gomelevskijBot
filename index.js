@@ -44,7 +44,10 @@ menu.simpleButton('Получить колонки', 'a', {
           .then(list => {
 
             menu.simpleButton('Новая кнопка', 'ad', {
-              doFunc: ctx => {return ctx.reply(list[1].name);}
+              joinLastRow: true,
+              doFunc: ctx => {
+                return ctx.reply("list");
+              }
             })
 
           })
