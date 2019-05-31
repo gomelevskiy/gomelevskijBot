@@ -45,7 +45,7 @@ menu.simpleButton('Получить колонки', 'a', {
             // return ctx.reply(list[1].name);
 
             for( let i = 0; i < list.length; i++ ) {
-              return ctx.reply(list[1].name);
+              return ctx.reply(list.length);
             }
           })
       })
