@@ -57,7 +57,6 @@ function httpGet(url) {
 
   return new Promise(function(resolve, reject) {
     var req = unirest("GET", url);
-
     req.headers({
       "cache-control": "no-cache"
     });
@@ -65,7 +64,7 @@ function httpGet(url) {
     req.end(function (res) {
       if (res.error) throw new Error(res.error);
 
-      return res.body;
+      resolve(res.body);
     });
   });
 }
