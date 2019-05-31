@@ -34,8 +34,8 @@ menu.simpleButton('Получить колонки', 'a', {
     // get lists
     httpGet(url)
       .then(response => {
-        return ctx.reply('Тут был тоже');
-        let board = JSON.parse(response);
+        return ctx.reply(response.id);
+        // let board = JSON.parse(response);
         // return ctx.reply(board);
       })
 
