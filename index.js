@@ -42,7 +42,15 @@ menu.simpleButton('Получить колонки', 'a', {
         let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ paramTrello.key +"&token=" + paramTrello.token;
         httpGet(getList)
           .then(list => {
-            return ctx.reply(list[1].name);
+            // return ctx.reply(list[1].name);
+            let btnList = new TelegrafInlineMenu(ctx => `Какой список нужен?`);
+            for( let i = 0; i < list.length; i++ ) {
+              btnList.simpleButton(i, 'a' + i, {
+                joinLastRow: true,
+                doFunc: ctx => {}
+              })
+            }
+            app.use(btnList.init());
           })
       })
     }
