@@ -47,7 +47,7 @@ app.use(menu.init());
 app.on('message', ctx => ctx.reply('Ты пёс!'));
 
 app.catch(error => {
-  console.log('telegraf error', error.response, error.parameters, error.on || error);
+  console.log('telegraf error (Тут ошибки есть)', error.response, error.parameters, error.on || error);
 });
 
 app.launch();
