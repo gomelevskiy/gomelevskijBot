@@ -44,7 +44,16 @@ menu.simpleButton('Получить колонки', 'a', {
         httpGet(getList)
           .then(list => {
             // return ctx.reply(list[1].name);
-            ctx.reply('text', {reply_markup: {inline_keyboard: [[{text: 'first button in first line', url: 'url'}, {text: 'second button in first line', url: 'url'}, ...], [{text: 'first button in second line', callback_action: 'action'}, [...]] }});
+            ctx.reply('text', {
+              reply_markup: {
+                inline_keyboard: [
+                  [
+                    {text: 'first button in first line', url: 'url'},
+                    {text: 'second button in first line', url: 'url'},
+                  ]
+                ]
+              }
+            });
             for( let i = 0; i < list.length; i++ ) {
               // return ctx.reply(list.length);
             }
