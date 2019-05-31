@@ -24,10 +24,9 @@ app.hears('hi', ctx => {
 
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`);
 menu.setCommand('trello');
-let mainMenuToggle = false;
-menu.toggle('Получить колонки', 'a', {
+menu.simpleButton('Получить колонки', 'a', {
   joinLastRow: true,
-  setFunc: ctx => {
+  doFunc: ctx => {
 
     let url = '';
     url = "https://api.trello.com/1/boards/"+ paramTrello.page +"?fields=all&key="+ paramTrello.key +"&token=" + paramTrello.token;
@@ -43,16 +42,19 @@ menu.toggle('Получить колонки', 'a', {
         let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ paramTrello.key +"&token=" + paramTrello.token;
         httpGet(getList)
           .then(list => {
-            menu.submenu('Food menu', 'food', foodMenu, {
-              hide: () => mainMenuToggle
+
+            menu.simpleButton('Новая кнопка', 'ad', {
+              doFunc: ctx => {return ctx.reply(list[1].name);}
             })
 
-            return ctx.reply(list[1].name);
           })
       })
     }
-    isSetFunc: () => mainMenuToggle
 });
+
+function checkListMenu() {
+
+}
 
 app.use(menu.init());
 
