@@ -30,7 +30,7 @@ menu.simpleButton('Получить колонки', 'a', {
 
     let url = '';
     url = "https://api.trello.com/1/boards/"+ paramTrello.page +"?fields=all&key="+ paramTrello.key +"&token=" + paramTrello.token;
-    return ctx.reply(url);
+
     // get lists
     httpGet(url)
       .then(response => {
