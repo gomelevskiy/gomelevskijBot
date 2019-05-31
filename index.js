@@ -34,7 +34,8 @@ menu.simpleButton('Получить колонки', 'a', {
     // get lists
     httpGet(url)
       .then(response => {
-        console.log('До преобразования: ' + response);
+
+        return ctx.reply(response.id);
       })
 
     }
