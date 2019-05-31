@@ -42,22 +42,15 @@ menu.simpleButton('Получить колонки', 'a', {
         let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ paramTrello.key +"&token=" + paramTrello.token;
         httpGet(getList)
           .then(list => {
+            // return ctx.reply(list[1].name);
 
-            menu.simpleButton('Новая кнопка', 'ad', {
-              joinLastRow: true,
-              doFunc: ctx => {
-                return ctx.reply("list");
-              }
-            })
-
+            for( let i = 0; i < list.length; i++ ) {
+              return ctx.reply(list[1].name);
+            }
           })
       })
     }
 });
-
-function checkListMenu() {
-
-}
 
 app.use(menu.init());
 
