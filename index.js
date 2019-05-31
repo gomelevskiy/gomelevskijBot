@@ -39,7 +39,7 @@ menu.simpleButton('Получить колонки', 'a', {
 
       .then(board => {
         // lists arr
-        let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ param.key +"&token=" + param.token;
+        let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ paramTrello.key +"&token=" + paramTrello.token;
         return ctx.reply(getList);
       })
     }
