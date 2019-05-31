@@ -63,10 +63,7 @@ function httpGet(url) {
     req.end(function (res) {
       if (res.error) throw new Error(res.error);
 
-      console.log(res.body);
+      return res.body;
     });
-
-    app.sendMessage(fromId, req);
-
   });
 }
