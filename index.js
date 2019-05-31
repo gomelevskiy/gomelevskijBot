@@ -40,16 +40,7 @@ menu.simpleButton('Получить колонки', 'a', {
       .then(board => {
         // lists arr
         let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ param.key +"&token=" + param.token;
-        httpGet(getList)
-          .then(list => {
-            let data = JSON.parse(list);
-
-            for( var i = 0; i < data.length; i++ ) {
-              console.log(data[i]);
-            }
-
-            console.log(data);
-          })
+        return ctx.reply(getList);
       })
     }
 });
