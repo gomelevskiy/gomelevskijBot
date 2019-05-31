@@ -23,9 +23,14 @@ app.hears('hi', ctx => {
 });
 
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`);
+let mainMenuToggle = false;
 menu.setCommand('trello');
 menu.simpleButton('Получить колонки', 'a', {
   joinLastRow: true,
+  setFunc: (_ctx, newVal) => {
+    mainMenuToggle = newVal
+  },
+  isSetFunc: () => mainMenuToggle,
   doFunc: ctx => {
 
     let url = '';
@@ -45,7 +50,12 @@ menu.simpleButton('Получить колонки', 'a', {
             // return ctx.reply(list[1].name);
 
             for( let i = 0; i < list.length; i++ ) {
-              return ctx.reply(list.length);
+              // return ctx.reply(list.length);
+              menu.simpleButton('click me harder', 'd', {
+                doFunc: async ctx => ctx.answerCbQuery('you can do better!'),
+                joinLastRow: true,
+                hide: () => mainMenuToggle
+              })
             }
           })
       })
