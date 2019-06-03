@@ -11,21 +11,18 @@ const paramTrello = {
 
 const TelegrafInlineMenu = require('telegraf-inline-menu')
 
-
-
-
-// menu.toggle('toggle me', 'a', {
-//   setFunc: (_ctx, newVal) => {
-//     mainMenuToggle = newVal
-//   },
-//   isSetFunc: () => mainMenuToggle
-// })
-
 // переменные
 const people = {}
 const food = ['добавить', 'редактировать']
 
 let mainMenuToggle = false
+menu.toggle('toggle me', 'a', {
+  setFunc: (_ctx, newVal) => {
+    mainMenuToggle = newVal
+  },
+  isSetFunc: () => mainMenuToggle
+})
+
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`)
 // кнопка инициализации, 1 шаг начальный, закрывает основное меню и открывает меню со списками
 menu.submenu('Получить списки Trello', 'food', trelloMenu, {
