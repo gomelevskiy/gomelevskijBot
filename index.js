@@ -70,7 +70,7 @@ const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name}
 // кнопка инициализации, 1 шаг начальный, закрывает основное меню и открывает меню со списками
 menu.submenu('Получить списки Trello', 'food', trelloMenu, {
   hide: () => mainMenuToggle,
-  doFunct: () => getListTrello(paramTrello.page,paramTrello.key,paramTrello.token)
+  doFunc: () => getListTrello(paramTrello.page,paramTrello.key,paramTrello.token)
 })
 
 // инициализация меню списков
