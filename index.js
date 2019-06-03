@@ -24,7 +24,7 @@ let mainMenuToggle = false
 const trelloMenu = new TelegrafInlineMenu('Текущие списки Trello')
 // переменные
 const people = {}
-const food = ['хлеб', 'пирог', 'бананы']
+const food = ['добавить', 'редактировать']
 
 getListTrello(paramTrello.page,paramTrello.key,paramTrello.token);
 
@@ -85,16 +85,16 @@ const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
     }
   })
 
-  // .select('f', food, {
-  //   setFunc: (ctx, key) => {
-  //     const person = ctx.match[1]
-  //     people[person].food = key
-  //   },
-  //   isSetFunc: (ctx, key) => {
-  //     const person = ctx.match[1]
-  //     return people[person].food === key
-  //   }
-  // })
+  .select('f', food, {
+    setFunc: (ctx, key) => {
+      const person = ctx.match[1]
+      people[person].food = key
+    },
+    isSetFunc: (ctx, key) => {
+      const person = ctx.match[1]
+      return people[person].food === key
+    }
+  })
 
 // создает меню с выбором списком и остальными пунктами, типа вернуться на главную
 trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
@@ -104,13 +104,6 @@ trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
 
 // создает блок создания нового списка, добавляет в массив
 trelloMenu.question('Добавить список [в разработке]', 'add', {
-  questionText: 'Хотите добавить новый список в Trello?',
-  setFunc: (_ctx, key) => {
-    people[key] = {}
-  }
-})
-
-trelloSelectSubmenu.question('Добавить список [в разработке]', 'add', {
   questionText: 'Хотите добавить новый список в Trello?',
   setFunc: (_ctx, key) => {
     people[key] = {}
