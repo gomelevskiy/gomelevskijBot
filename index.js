@@ -29,7 +29,7 @@ menu.submenu('Получить списки Trello', 'food', trelloMenu, {
 
 // кнопка на выбрать не выбрать, ставит иконку в своем поинте
 const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
-  .toggle('Добавить новую запись', 'x', {
+  .toggle('[в разработке]', 'x', {
     setFunc: (ctx, choice) => {
       const person = ctx.match[1]
       people[person].tee = choice
@@ -42,7 +42,9 @@ const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
   .select('f', food, {
     setFunc: (ctx, key) => {
       const person = ctx.match[1]
-      people[person].food = key
+      people[person].id = key
+
+      return ctx.reply(person);
     },
     isSetFunc: (ctx, key) => {
       const person = ctx.match[1]
