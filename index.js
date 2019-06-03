@@ -3,7 +3,7 @@ const {readFileSync} = require('fs')
 const Telegraf = require('telegraf')
 const session = require('telegraf/session')
 
-const TelegrafInlineMenu = require('./dist')
+const TelegrafInlineMenu = require('telegraf-inline-menu')
 
 const menu = new TelegrafInlineMenu('Main Menu')
 
@@ -116,8 +116,8 @@ menu.submenu('Photo Menu', 'photo', new TelegrafInlineMenu('', {
 
 menu.setCommand('start')
 
-const token = readFileSync('token.txt', 'utf8').trim()
-const bot = new Telegraf(token)
+// const token = readFileSync('token.txt', 'utf8').trim()
+const bot = new Telegraf(process.env.BOT_TOKEN);
 bot.use(session())
 
 bot.use((ctx, next) => {
