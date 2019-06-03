@@ -24,18 +24,18 @@ let mainMenuToggle = false
 const trelloMenu = new TelegrafInlineMenu('Текущие списки Trello')
 // переменные
 const people = {}
-const food = ['добавить', 'редактировать']
+const par = ['добавить', 'редактировать']
 
 getListTrello(paramTrello.page,paramTrello.key,paramTrello.token);
 
 // функция кнопок людей, нужно переделать на списки трелло
 function personButtonText(_ctx, key) {
   const entry = people[key]
-  if (!entry || !entry.food) {
+  if (!entry || !entry.par) {
     return key
   }
 
-  return `${key} (${entry.food})`
+  return `${key} (${entry.par})`
 }
 
 // добавил функцию получения списков
@@ -64,7 +64,7 @@ function getListTrello(page,key,token) {
 // функция когда уже выбрали конкретный список (человека)
 function trelloSelectText(ctx) {
   const person = ctx.match[1]
-  const hisChoice = people[person].food
+  const hisChoice = people[person].par
   if (!hisChoice) {
     return `Что вы хотите сделать со списком "${person}"`
   }
