@@ -22,12 +22,12 @@ const trelloMenu = new TelegrafInlineMenu('Текущие списки Trello')
 
 
 let mainMenuToggle = false;
-menu.toggle('toggle me', 'a', {
-  setFunc: (_ctx, newVal) => {
-    mainMenuToggle = newVal
-  },
-  isSetFunc: () => mainMenuToggle
-})
+// menu.toggle('toggle me', 'a', {
+//   setFunc: (_ctx, newVal) => {
+//     mainMenuToggle = newVal
+//   },
+//   isSetFunc: () => mainMenuToggle
+// })
 
 // кнопка инициализации, 1 шаг начальный, закрывает основное меню и открывает меню со списками
 menu.submenu('Получить списки Trello', 'food', trelloMenu, {
