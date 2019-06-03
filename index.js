@@ -5,7 +5,7 @@ const session = require('telegraf/session')
 
 const TelegrafInlineMenu = require('telegraf-inline-menu')
 
-const menu = new TelegrafInlineMenu('Main Menu')
+const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`)
 
 let mainMenuToggle = false
 // menu.toggle('toggle me', 'a', {
@@ -15,7 +15,7 @@ let mainMenuToggle = false
 //   isSetFunc: () => mainMenuToggle
 // })
 
-const foodMenu = new TelegrafInlineMenu('Тут было меню с едой')
+const trelloMenu = new TelegrafInlineMenu('Тут было меню с едой')
 
 const people = {Mark: {}, Paul: {}}
 const food = ['хлеб', 'пирог', 'бананы']
@@ -61,19 +61,19 @@ const foodSelectSubmenu = new TelegrafInlineMenu(foodSelectText)
     }
   })
 
-foodMenu.selectSubmenu('p', () => Object.keys(people), foodSelectSubmenu, {
+trelloMenu.selectSubmenu('p', () => Object.keys(people), foodSelectSubmenu, {
   textFunc: personButtonText,
   columns: 2
 })
 
-foodMenu.question('Добавить список', 'add', {
+trelloMenu.question('Добавить список', 'add', {
   questionText: 'Хотите добавить новый список в Trello?',
   setFunc: (_ctx, key) => {
     people[key] = {}
   }
 })
 
-menu.submenu('Блюда', 'food', foodMenu, {
+menu.submenu('Получить списки Trello', 'food', trelloMenu, {
   hide: () => mainMenuToggle
 })
 
