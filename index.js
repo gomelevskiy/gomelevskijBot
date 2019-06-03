@@ -74,24 +74,16 @@ function trelloSelectText(ctx) {
 
 // кнопка на выбрать не выбрать, ставит иконку в своем поинте
 const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
-  .toggle('Prefer Tee', 't', {
+  .toggle('Добавить новую запись', 't', {
     setFunc: (ctx, choice) => {
       const person = ctx.match[1]
       people[person].tee = choice
-    },
-    isSetFunc: ctx => {
-      const person = ctx.match[1]
-      return people[person].tee === true
     }
   })
   .select('f', food, {
     setFunc: (ctx, key) => {
       const person = ctx.match[1]
       people[person].food = key
-    },
-    isSetFunc: (ctx, key) => {
-      const person = ctx.match[1]
-      return people[person].food === key
     }
   })
 
