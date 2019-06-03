@@ -74,27 +74,25 @@ function trelloSelectText(ctx) {
 
 // кнопка на выбрать не выбрать, ставит иконку в своем поинте
 const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
-  .toggle('Добавить пункт в список', 't', {
-    setFunc: (ctx, choice) => {
-      const person = ctx.match[1]
-      people[person].tee = choice
-    },
-    isSetFunc: ctx => {
-      const person = ctx.match[1]
-      return people[person].tee === true
-    }
-  })
+  // .toggle('Добавить пункт в список', 't', {
+  //   setFunc: (ctx, choice) => {
 
-  .select('f', food, {
-    setFunc: (ctx, key) => {
-      const person = ctx.match[1]
-      people[person].food = key
-    },
-    isSetFunc: (ctx, key) => {
-      const person = ctx.match[1]
-      return people[person].food === key
-    }
-  })
+  //   },
+  //   isSetFunc: ctx => {
+
+  //   }
+  // })
+
+  // .select('f', food, {
+  //   setFunc: (ctx, key) => {
+  //     const person = ctx.match[1]
+  //     people[person].food = key
+  //   },
+  //   isSetFunc: (ctx, key) => {
+  //     const person = ctx.match[1]
+  //     return people[person].food === key
+  //   }
+  // })
 
 // создает меню с выбором списком и остальными пунктами, типа вернуться на главную
 trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
@@ -111,7 +109,7 @@ trelloMenu.question('Добавить список [в разработке]', '
 })
 
 // кнопка инициализации, 1 шаг начальный, закрывает основное меню и открывает меню со списками
-menu.submenu('Получить списки Trello', 'food', trelloMenu, {
+menu.submenu('Получить списки Trello', 'trello', trelloMenu, {
   hide: () => mainMenuToggle
 })
 
