@@ -25,7 +25,7 @@ const trelloMenu = new TelegrafInlineMenu('Текущие списки Trello')
 
 getListTrello(paramTrello.page,paramTrello.key,paramTrello.token);
 
-const people = {Mark: {}, Paul: {}, Karton: {}}
+const people = {}
 const food = ['хлеб', 'пирог', 'бананы']
 
 // функция кнопок людей, нужно переделать на списки трелло
@@ -54,7 +54,9 @@ function getListTrello(page,key,token) {
       let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ key +"&token=" + token;
       httpGet(getList)
         .then(list => {
-          return ctx.reply(list[1].name);
+          for( var i = 0; i < list.length; i++ ) {
+            people[data[i].name] = {};
+          }
         })
     })
 }
