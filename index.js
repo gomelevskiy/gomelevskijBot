@@ -1,81 +1,140 @@
-// includes
-const Telegraf = require('telegraf');
-const http = require('request');
-const unirest = require('unirest');
-const TelegrafInlineMenu = require('telegraf-inline-menu');
-const paramTrello = {
-  page: "AvJmy7iN",
-  key: "af5c385fa0bbcca4ef1d6c0692a95531",
-  token: "2213c6ce8516841f60b276fe1c4431096b7b9333bcede41f05a791f98b90e5d9"
-};
+const {readFileSync} = require('fs')
 
-// init app
-const app = new Telegraf(process.env.BOT_TOKEN);
+const Telegraf = require('telegraf')
+const session = require('telegraf/session')
 
-app.start((ctx) => ctx.reply("Welcome, " + ctx.message.from.last_name + " " + ctx.message.from.first_name));
-app.command('test', (ctx) => ctx.reply('Test'));
+const TelegrafInlineMenu = require('./dist')
 
-app.hears('hi', ctx => {
+const menu = new TelegrafInlineMenu('Main Menu')
 
-  let msg = '';
-  msg = 'Сказал мне ' + ctx.message.text;
-  return ctx.reply(msg);
-});
+menu.urlButton('EdJoPaTo.de', 'https://edjopato.de')
 
-const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`);
-let mainMenuToggle = false;
-menu.setCommand('trello');
-menu.simpleButton('Получить колонки', 'a', {
+let mainMenuToggle = false
+menu.toggle('toggle me', 'a', {
+  setFunc: (_ctx, newVal) => {
+    mainMenuToggle = newVal
+  },
+  isSetFunc: () => mainMenuToggle
+})
+
+menu.simpleButton('click me', 'c', {
+  doFunc: async ctx => ctx.answerCbQuery('you clicked me!'),
+  hide: () => mainMenuToggle
+})
+
+menu.simpleButton('click me harder', 'd', {
+  doFunc: async ctx => ctx.answerCbQuery('you can do better!'),
   joinLastRow: true,
-  doFunc: ctx => {
+  hide: () => mainMenuToggle
+})
 
-    let url = '';
-    url = "https://api.trello.com/1/boards/"+ paramTrello.page +"?fields=all&key="+ paramTrello.key +"&token=" + paramTrello.token;
+let selectedKey = 'b'
+menu.select('s', ['A', 'B', 'C'], {
+  setFunc: async (ctx, key) => {
+    selectedKey = key
+    await ctx.answerCbQuery(`you selected ${key}`)
+  },
+  isSetFunc: (_ctx, key) => key === selectedKey
+})
 
-    // get lists
-    httpGet(url)
-      .then(response => {
-        return response.id;
-      })
+const foodMenu = new TelegrafInlineMenu('People like food. What do they like?')
 
-      .then(board => {
-        // lists arr
-        let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ paramTrello.key +"&token=" + paramTrello.token;
-        httpGet(getList)
-          .then(list => {
-            return ctx.reply(list[1].name);
+const people = {Mark: {}, Paul: {}}
+const food = ['bread', 'cake', 'bananas']
 
-            // for( let i = 0; i < list.length; i++ ) {
-              // return ctx.reply(list.length);
-            // }
-          })
-      })
-    }
-});
+function personButtonText(_ctx, key) {
+  const entry = people[key]
+  if (!entry || !entry.food) {
+    return key
+  }
 
-app.use(menu.init());
-
-app.on('message', ctx => ctx.reply('Ты пёс!'));
-
-app.catch(error => {
-  console.log('telegraf error (Тут ошибки есть)', error.response, error.parameters, error.on || error);
-});
-
-app.launch();
-
-// FUNCTION GET
-function httpGet(url) {
-
-  return new Promise(function(resolve, reject) {
-    var req = unirest("GET", url);
-    req.headers({
-      "cache-control": "no-cache"
-    });
-
-    req.end(function (res) {
-      if (res.error) throw new Error(res.error);
-
-      resolve(res.body);
-    });
-  });
+  return `${key} (${entry.food})`
 }
+
+function foodSelectText(ctx) {
+  const person = ctx.match[1]
+  const hisChoice = people[person].food
+  if (!hisChoice) {
+    return `${person} is still unsure what to eat.`
+  }
+
+  return `${person} likes ${hisChoice} currently.`
+}
+
+const foodSelectSubmenu = new TelegrafInlineMenu(foodSelectText)
+  .toggle('Prefer Tee', 't', {
+    setFunc: (ctx, choice) => {
+      const person = ctx.match[1]
+      people[person].tee = choice
+    },
+    isSetFunc: ctx => {
+      const person = ctx.match[1]
+      return people[person].tee === true
+    }
+  })
+  .select('f', food, {
+    setFunc: (ctx, key) => {
+      const person = ctx.match[1]
+      people[person].food = key
+    },
+    isSetFunc: (ctx, key) => {
+      const person = ctx.match[1]
+      return people[person].food === key
+    }
+  })
+
+foodMenu.selectSubmenu('p', () => Object.keys(people), foodSelectSubmenu, {
+  textFunc: personButtonText,
+  columns: 2
+})
+
+foodMenu.question('Add person', 'add', {
+  questionText: 'Who likes food too?',
+  setFunc: (_ctx, key) => {
+    people[key] = {}
+  }
+})
+
+menu.submenu('Food menu', 'food', foodMenu, {
+  hide: () => mainMenuToggle
+})
+
+let isAndroid = true
+menu.submenu('Photo Menu', 'photo', new TelegrafInlineMenu('', {
+  photo: () => isAndroid ? 'https://telegram.org/img/SiteAndroid.jpg' : 'https://telegram.org/img/SiteiOs.jpg'
+}))
+  .setCommand('photo')
+  .simpleButton('Just a button', 'a', {
+    doFunc: async ctx => ctx.answerCbQuery('Just a callback query answer')
+  })
+  .select('img', ['iOS', 'Android'], {
+    isSetFunc: (_ctx, key) => key === 'Android' ? isAndroid : !isAndroid,
+    setFunc: (_ctx, key) => {
+      isAndroid = key === 'Android'
+    }
+  })
+
+menu.setCommand('start')
+
+const token = readFileSync('token.txt', 'utf8').trim()
+const bot = new Telegraf(token)
+bot.use(session())
+
+bot.use((ctx, next) => {
+  if (ctx.callbackQuery) {
+    console.log('another callbackQuery happened', ctx.callbackQuery.data.length, ctx.callbackQuery.data)
+  }
+
+  return next()
+})
+
+bot.use(menu.init({
+  backButtonText: 'back…',
+  mainMenuButtonText: 'back to main menu…'
+}))
+
+bot.catch(error => {
+  console.log('telegraf error', error.response, error.parameters, error.on || error)
+})
+
+bot.startPolling()
