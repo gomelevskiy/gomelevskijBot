@@ -33,14 +33,14 @@ function foodSelectText(ctx) {
   const person = ctx.match[1]
   const hisChoice = people[person].food
   if (!hisChoice) {
-    return `${person} is still unsure what to eat.`
+    return `${person} тут текст что он выбрал подставляется`
   }
 
-  return `${person} likes ${hisChoice} currently.`
+  return `${person} любит ${hisChoice} этот выбор, это для текста, а не кнопка.`
 }
 
 const foodSelectSubmenu = new TelegrafInlineMenu(foodSelectText)
-  .toggle('Еще одно меню вроде', 't', {
+  .toggle('Тугл выбрать не выбрать', 't', {
     setFunc: (ctx, choice) => {
       const person = ctx.match[1]
       people[person].tee = choice
@@ -66,8 +66,8 @@ foodMenu.selectSubmenu('p', () => Object.keys(people), foodSelectSubmenu, {
   columns: 2
 })
 
-foodMenu.question('Добавить людей', 'add', {
-  questionText: 'Кто любит еду тоже',
+foodMenu.question('Добавить список', 'add', {
+  questionText: 'Хотите добавить новый список в Trello?',
   setFunc: (_ctx, key) => {
     people[key] = {}
   }
@@ -99,7 +99,7 @@ bot.use(session())
 
 bot.use((ctx, next) => {
   if (ctx.callbackQuery) {
-    console.log('another callbackQuery happened', ctx.callbackQuery.data.length, ctx.callbackQuery.data)
+    console.log('хз что это', ctx.callbackQuery.data.length, ctx.callbackQuery.data)
   }
 
   return next()
