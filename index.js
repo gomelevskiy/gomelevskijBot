@@ -73,9 +73,9 @@ foodMenu.question('Добавить людей', 'add', {
   }
 })
 
-menu.submenu('Блюда', 'food', foodMenu, {
-  hide: () => mainMenuToggle
-})
+// menu.submenu('Блюда', 'food', foodMenu, {
+//   hide: () => mainMenuToggle
+// })
 
 // let isAndroid = true
 // menu.submenu('Photo Menu', 'photo', new TelegrafInlineMenu('', {
