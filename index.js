@@ -15,7 +15,7 @@ const TelegrafInlineMenu = require('telegraf-inline-menu')
 const people = {}
 const food = ['добавить', 'редактировать']
 
-let mainMenuToggle = false
+let mainMenuToggle = false;
 menu.toggle('toggle me', 'a', {
   setFunc: (_ctx, newVal) => {
     mainMenuToggle = newVal
