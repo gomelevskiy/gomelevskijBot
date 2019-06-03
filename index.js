@@ -44,7 +44,7 @@ const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
       const person = ctx.match[1]
       people[person].id = key
 
-      return ctx.reply(people[person], key);
+      sendMsg(people[person]);
     },
     isSetFunc: (ctx, key) => {
       const person = ctx.match[1]
@@ -91,6 +91,10 @@ bot.catch(error => {
 bot.startPolling()
 
 // FUNCTIONS
+
+function sendMsg(id) {
+  return ctx.reply(id);
+}
 
 // функция кнопок людей, нужно переделать на списки трелло
 function personButtonText(_ctx, key) {
