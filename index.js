@@ -93,7 +93,6 @@ bot.startPolling()
 // FUNCTIONS
 
 function sendMsg(ctx,id) {
-
   return ctx.reply(id);
 }
 
