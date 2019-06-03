@@ -55,7 +55,7 @@ function getListTrello(page,key,token) {
       httpGet(getList)
         .then(list => {
           for( let i = 0; i < list.length; i++ ) {
-            people[list[i].name] = {};
+            people[list[i].name] = list[i].id;
           }
         })
     })
