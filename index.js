@@ -25,49 +25,6 @@ const TelegrafInlineMenu = require('telegraf-inline-menu')
 const people = {}
 const food = ['добавить', 'редактировать']
 
-
-
-// функция кнопок людей, нужно переделать на списки трелло
-function personButtonText(_ctx, key) {
-
-  getListTrello(paramTrello.page,paramTrello.key,paramTrello.token);
-
-  const entry = people[key]
-  if (!entry || !entry.food) {
-    return key
-  }
-
-  return `${key} (${entry.food})`
-}
-
-
-
-
-
-// кнопка на выбрать не выбрать, ставит иконку в своем поинте
-const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
-  .toggle('Добавить новую запись', 't', {
-    setFunc: (ctx, choice) => {
-      const person = ctx.match[1]
-      people[person].tee = choice
-    },
-    isSetFunc: ctx => {
-      const person = ctx.match[1]
-      return people[person].tee === true
-    }
-  })
-  .select('f', food, {
-    setFunc: (ctx, key) => {
-      const person = ctx.match[1]
-      people[person].food = key
-    },
-    isSetFunc: (ctx, key) => {
-      const person = ctx.match[1]
-      return people[person].food === key
-    }
-  })
-
-
 let mainMenuToggle = false
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`)
 // кнопка инициализации, 1 шаг начальный, закрывает основное меню и открывает меню со списками
@@ -91,7 +48,28 @@ trelloMenu.question('Добавить список [в разработке]', '
   }
 })
 
-
+// кнопка на выбрать не выбрать, ставит иконку в своем поинте
+const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
+  .toggle('Добавить новую запись', 't', {
+    setFunc: (ctx, choice) => {
+      const person = ctx.match[1]
+      people[person].tee = choice
+    },
+    isSetFunc: ctx => {
+      const person = ctx.match[1]
+      return people[person].tee === true
+    }
+  })
+  .select('f', food, {
+    setFunc: (ctx, key) => {
+      const person = ctx.match[1]
+      people[person].food = key
+    },
+    isSetFunc: (ctx, key) => {
+      const person = ctx.match[1]
+      return people[person].food === key
+    }
+  })
 
 
 // let isAndroid = true
@@ -134,6 +112,19 @@ bot.catch(error => {
 bot.startPolling()
 
 // FUNCTIONS
+
+// функция кнопок людей, нужно переделать на списки трелло
+function personButtonText(_ctx, key) {
+
+  getListTrello(paramTrello.page,paramTrello.key,paramTrello.token);
+
+  const entry = people[key]
+  if (!entry || !entry.food) {
+    return key
+  }
+
+  return `${key} (${entry.food})`
+}
 // добавил функцию получения списков
 // функция когда уже выбрали конкретный список (человека)
 function trelloSelectText(ctx) {
