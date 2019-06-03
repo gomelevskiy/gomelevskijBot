@@ -84,16 +84,22 @@ const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
       return people[person].tee === true
     }
   })
-  .select('f', food, {
-    setFunc: (ctx, key) => {
-      const person = ctx.match[1]
-      people[person].food = key
-    },
-    isSetFunc: (ctx, key) => {
-      const person = ctx.match[1]
-      return people[person].food === key
+  .question('Добавить список [в разработке]', 'add', {
+    questionText: 'Хотите добавить новый список в Trello?',
+    setFunc: (_ctx, key) => {
+      people[key] = {}
     }
   })
+  // .select('f', food, {
+  //   setFunc: (ctx, key) => {
+  //     const person = ctx.match[1]
+  //     people[person].food = key
+  //   },
+  //   isSetFunc: (ctx, key) => {
+  //     const person = ctx.match[1]
+  //     return people[person].food === key
+  //   }
+  // })
 
 // создает меню с выбором списком и остальными пунктами, типа вернуться на главную
 trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
