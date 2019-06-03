@@ -11,22 +11,21 @@ const paramTrello = {
 
 const TelegrafInlineMenu = require('telegraf-inline-menu')
 
-const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`)
 
-let mainMenuToggle = false
+
+
 // menu.toggle('toggle me', 'a', {
 //   setFunc: (_ctx, newVal) => {
 //     mainMenuToggle = newVal
 //   },
 //   isSetFunc: () => mainMenuToggle
 // })
-// инициализация меню списков
-const trelloMenu = new TelegrafInlineMenu('Текущие списки Trello')
+
 // переменные
 const people = {}
 const food = ['добавить', 'редактировать']
 
-getListTrello(paramTrello.page,paramTrello.key,paramTrello.token);
+
 
 // функция кнопок людей, нужно переделать на списки трелло
 function personButtonText(_ctx, key) {
@@ -38,39 +37,9 @@ function personButtonText(_ctx, key) {
   return `${key} (${entry.food})`
 }
 
-// добавил функцию получения списков
-function getListTrello(page,key,token) {
-  let url = '';
-  url = "https://api.trello.com/1/boards/"+ page +"?fields=all&key="+ key +"&token=" + token;
 
-  // get lists
-  httpGet(url)
-    .then(response => {
-      return response.id;
-    })
 
-    .then(board => {
-      // lists arr
-      let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ key +"&token=" + token;
-      httpGet(getList)
-        .then(list => {
-          for( let i = 0; i < list.length; i++ ) {
-            people[list[i].name] = list[i].id;
-          }
-        })
-    })
-}
 
-// функция когда уже выбрали конкретный список (человека)
-function trelloSelectText(ctx) {
-  const person = ctx.match[1]
-  const hisChoice = people[person].food
-  if (!hisChoice) {
-    return `Что вы хотите сделать со списком "${person}"`
-  }
-
-  return `${person} любит ${hisChoice} этот выбор, это для текста, а не кнопка.`
-}
 
 // кнопка на выбрать не выбрать, ставит иконку в своем поинте
 const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
@@ -78,15 +47,34 @@ const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
     setFunc: (ctx, choice) => {
       const person = ctx.match[1]
       people[person].tee = choice
+    },
+    isSetFunc: ctx => {
+      const person = ctx.match[1]
+      return people[person].tee === true
     }
   })
   .select('f', food, {
     setFunc: (ctx, key) => {
       const person = ctx.match[1]
       people[person].food = key
+    },
+    isSetFunc: (ctx, key) => {
+      const person = ctx.match[1]
+      return people[person].food === key
     }
   })
 
+
+let mainMenuToggle = false
+const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`)
+// кнопка инициализации, 1 шаг начальный, закрывает основное меню и открывает меню со списками
+menu.submenu('Получить списки Trello', 'food', trelloMenu, {
+  hide: () => mainMenuToggle,
+  doFunct: () => getListTrello(paramTrello.page,paramTrello.key,paramTrello.token)
+})
+
+// инициализация меню списков
+const trelloMenu = new TelegrafInlineMenu('Текущие списки Trello')
 // создает меню с выбором списком и остальными пунктами, типа вернуться на главную
 trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
   textFunc: personButtonText,
@@ -101,10 +89,8 @@ trelloMenu.question('Добавить список [в разработке]', '
   }
 })
 
-// кнопка инициализации, 1 шаг начальный, закрывает основное меню и открывает меню со списками
-menu.submenu('Получить списки Trello', 'food', trelloMenu, {
-  hide: () => mainMenuToggle
-})
+
+
 
 // let isAndroid = true
 // menu.submenu('Photo Menu', 'photo', new TelegrafInlineMenu('', {
@@ -144,6 +130,41 @@ bot.catch(error => {
 })
 
 bot.startPolling()
+
+// FUNCTIONS
+// добавил функцию получения списков
+// функция когда уже выбрали конкретный список (человека)
+function trelloSelectText(ctx) {
+  const person = ctx.match[1]
+  const hisChoice = people[person].food
+  if (!hisChoice) {
+    return `Что вы хотите сделать со списком "${person}"`
+  }
+
+  return `${person} любит ${hisChoice} этот выбор, это для текста, а не кнопка.`
+}
+
+function getListTrello(page,key,token) {
+  let url = '';
+  url = "https://api.trello.com/1/boards/"+ page +"?fields=all&key="+ key +"&token=" + token;
+
+  // get lists
+  httpGet(url)
+    .then(response => {
+      return response.id;
+    })
+
+    .then(board => {
+      // lists arr
+      let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ key +"&token=" + token;
+      httpGet(getList)
+        .then(list => {
+          for( let i = 0; i < list.length; i++ ) {
+            people[list[i].name] = list[i].id;
+          }
+        })
+    })
+}
 
 // FUNCTION GET
 function httpGet(url) {
