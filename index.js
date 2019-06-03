@@ -29,6 +29,9 @@ const food = ['добавить', 'редактировать']
 
 // функция кнопок людей, нужно переделать на списки трелло
 function personButtonText(_ctx, key) {
+
+  getListTrello(paramTrello.page,paramTrello.key,paramTrello.token);
+
   const entry = people[key]
   if (!entry || !entry.food) {
     return key
@@ -69,8 +72,7 @@ let mainMenuToggle = false
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`)
 // кнопка инициализации, 1 шаг начальный, закрывает основное меню и открывает меню со списками
 menu.submenu('Получить списки Trello', 'food', trelloMenu, {
-  hide: () => mainMenuToggle,
-  doFunc: () => getListTrello(paramTrello.page,paramTrello.key,paramTrello.token)
+  hide: () => mainMenuToggle
 })
 
 // инициализация меню списков
