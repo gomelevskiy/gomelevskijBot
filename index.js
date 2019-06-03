@@ -61,7 +61,7 @@ function getListTrello(page,key,token) {
     })
 }
 
-// функция когда уже выбраликонкретный список (человека)
+// функция когда уже выбрали конкретный список (человека)
 function trelloSelectText(ctx) {
   const person = ctx.match[1]
   const hisChoice = people[person].food
@@ -74,14 +74,20 @@ function trelloSelectText(ctx) {
 
 // кнопка на выбрать не выбрать, ставит иконку в своем поинте
 const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
-  .toggle('Тугл выбрать не выбрать', 't', {
-    setFunc: (ctx, choice) => {
-      const person = ctx.match[1]
-      people[person].tee = choice
-    },
-    isSetFunc: ctx => {
-      const person = ctx.match[1]
-      return people[person].tee === true
+  // .toggle('Добавить пункт в список', 't', {
+  //   setFunc: (ctx, choice) => {
+  //     const person = ctx.match[1]
+  //     people[person].tee = choice
+  //   },
+  //   isSetFunc: ctx => {
+  //     const person = ctx.match[1]
+  //     return people[person].tee === true
+  //   }
+  // })
+  .question('Добавить пункт в выбранный список', 'add', {
+    questionText: 'Хотите добавить новый пункт в',
+    setFunc: (_ctx, key) => {
+      people[key] = {}
     }
   })
   .select('f', food, {
