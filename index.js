@@ -94,11 +94,6 @@ bot.startPolling()
 
 function sendMsg(ctx,id) {
 
-  const questionMenu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`)
-  menu.submenu('Получить списки Trello', 'food', trelloMenu, {
-  hide: () => trelloSelectSubmenu
-})
-
   return ctx.reply(id);
 }
 
