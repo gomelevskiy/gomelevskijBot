@@ -49,6 +49,8 @@ const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
     isSetFunc: (ctx, key) => {
       const person = ctx.match[1]
       return people[person].food === key
+
+      return ctx.reply("лалалавла");
     }
   })
 
