@@ -7,7 +7,7 @@ const TelegrafInlineMenu = require('telegraf-inline-menu')
 
 const menu = new TelegrafInlineMenu('Main Menu')
 
-// let mainMenuToggle = false
+let mainMenuToggle = false
 // menu.toggle('toggle me', 'a', {
 //   setFunc: (_ctx, newVal) => {
 //     mainMenuToggle = newVal
@@ -73,9 +73,9 @@ foodMenu.question('Добавить людей', 'add', {
   }
 })
 
-// menu.submenu('Блюда', 'food', foodMenu, {
-//   hide: () => mainMenuToggle
-// })
+menu.submenu('Блюда', 'food', foodMenu, {
+  hide: () => mainMenuToggle
+})
 
 // let isAndroid = true
 // menu.submenu('Photo Menu', 'photo', new TelegrafInlineMenu('', {
