@@ -24,7 +24,7 @@ let mainMenuToggle = false
 const trelloMenu = new TelegrafInlineMenu('Текущие списки Trello')
 // переменные
 const people = {}
-const food = ['добавить пункт', 'редактировать список']
+const food = ['добавить', 'редактировать']
 
 getListTrello(paramTrello.page,paramTrello.key,paramTrello.token);
 
