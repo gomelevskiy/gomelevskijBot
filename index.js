@@ -66,7 +66,7 @@ function trelloSelectText(ctx) {
   const person = ctx.match[1]
   const hisChoice = people[person].food
   if (!hisChoice) {
-    return `${person} тут текст что он выбрал подставляется`
+    return `Что вы хотите сделать со списком "${person}"`
   }
 
   return `${person} любит ${hisChoice} этот выбор, это для текста, а не кнопка.`
@@ -102,7 +102,7 @@ trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
 })
 
 // создает блок создания нового списка, добавляет в массив
-trelloMenu.question('Добавить список', 'add', {
+trelloMenu.question('Добавить список [в разработке]', 'add', {
   questionText: 'Хотите добавить новый список в Trello?',
   setFunc: (_ctx, key) => {
     people[key] = {}
