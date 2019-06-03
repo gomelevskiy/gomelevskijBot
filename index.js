@@ -17,7 +17,7 @@ let mainMenuToggle = false
 
 const trelloMenu = new TelegrafInlineMenu('Тут было меню с едой')
 
-const people = {Mark: {}, Paul: {}}
+const people = {Mark: {}, Paul: {}, Karton: {}}
 const food = ['хлеб', 'пирог', 'бананы']
 
 function personButtonText(_ctx, key) {
