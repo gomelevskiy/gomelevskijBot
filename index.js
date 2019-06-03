@@ -14,18 +14,17 @@ const TelegrafInlineMenu = require('telegraf-inline-menu')
 // переменные
 const people = {}
 const food = ['добавить', 'редактировать']
-getListTrello(paramTrello.page,paramTrello.key,paramTrello.token);
 
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`)
 // инициализация меню списков
 const trelloMenu = new TelegrafInlineMenu('Текущие списки Trello')
 
-
 let mainMenuToggle = false;
 
 // кнопка инициализации, 1 шаг начальный, закрывает основное меню и открывает меню со списками
 menu.submenu('Получить списки Trello', 'food', trelloMenu, {
-  hide: () => mainMenuToggle
+  hide: () => mainMenuToggle,
+  foFunc: getListTrello(paramTrello.page,paramTrello.key,paramTrello.token)
 })
 
 // кнопка на выбрать не выбрать, ставит иконку в своем поинте
