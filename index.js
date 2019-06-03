@@ -13,7 +13,7 @@ const TelegrafInlineMenu = require('telegraf-inline-menu')
 
 // переменные
 const people = {}
-const food = ['добавить', 'редактировать']
+const food = ['добавить']
 
 const menu = new TelegrafInlineMenu(ctx => `Привет, ${ctx.from.first_name} 👋\nЧто тебе нужно?`)
 // инициализация меню списков
