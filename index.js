@@ -34,20 +34,6 @@ menu.submenu('Получить списки Trello', 'food', trelloMenu, {
   hide: () => mainMenuToggle
 })
 
-// создает меню с выбором списком и остальными пунктами, типа вернуться на главную
-trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
-  textFunc: personButtonText,
-  columns: 2
-})
-
-// создает блок создания нового списка, добавляет в массив
-trelloMenu.question('Добавить список [в разработке]', 'add', {
-  questionText: 'Хотите добавить новый список в Trello?',
-  setFunc: (_ctx, key) => {
-    people[key] = {}
-  }
-})
-
 // кнопка на выбрать не выбрать, ставит иконку в своем поинте
 const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
   .toggle('Добавить новую запись', 't', {
@@ -71,6 +57,19 @@ const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
     }
   })
 
+// создает меню с выбором списком и остальными пунктами, типа вернуться на главную
+trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
+  textFunc: personButtonText,
+  columns: 2
+})
+
+// создает блок создания нового списка, добавляет в массив
+trelloMenu.question('Добавить список [в разработке]', 'add', {
+  questionText: 'Хотите добавить новый список в Trello?',
+  setFunc: (_ctx, key) => {
+    people[key] = {}
+  }
+})
 
 // let isAndroid = true
 // menu.submenu('Photo Menu', 'photo', new TelegrafInlineMenu('', {
