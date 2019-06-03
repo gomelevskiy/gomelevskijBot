@@ -22,12 +22,6 @@ const trelloMenu = new TelegrafInlineMenu('Текущие списки Trello')
 
 
 let mainMenuToggle = false;
-// menu.toggle('toggle me', 'a', {
-//   setFunc: (_ctx, newVal) => {
-//     mainMenuToggle = newVal
-//   },
-//   isSetFunc: () => mainMenuToggle
-// })
 
 // кнопка инициализации, 1 шаг начальный, закрывает основное меню и открывает меню со списками
 menu.submenu('Получить списки Trello', 'food', trelloMenu, {
@@ -38,6 +32,7 @@ menu.submenu('Получить списки Trello', 'food', trelloMenu, {
 const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
   .toggle('Добавить новую запись', 't', {
     setFunc: (ctx, choice) => {
+      getListTrello(paramTrello.page,paramTrello.key,paramTrello.token);
       const person = ctx.match[1]
       people[person].tee = choice
     },
@@ -70,21 +65,6 @@ trelloMenu.question('Добавить список [в разработке]', '
     people[key] = {}
   }
 })
-
-// let isAndroid = true
-// menu.submenu('Photo Menu', 'photo', new TelegrafInlineMenu('', {
-//   photo: () => isAndroid ? 'https://telegram.org/img/SiteAndroid.jpg' : 'https://telegram.org/img/SiteiOs.jpg'
-// }))
-//   .setCommand('photo')
-//   .simpleButton('Just a button', 'a', {
-//     doFunc: async ctx => ctx.answerCbQuery('Just a callback query answer')
-//   })
-//   .select('img', ['iOS', 'Android'], {
-//     isSetFunc: (_ctx, key) => key === 'Android' ? isAndroid : !isAndroid,
-//     setFunc: (_ctx, key) => {
-//       isAndroid = key === 'Android'
-//     }
-//   })
 
 menu.setCommand('start')
 
