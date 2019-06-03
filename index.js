@@ -7,15 +7,13 @@ const TelegrafInlineMenu = require('telegraf-inline-menu')
 
 const menu = new TelegrafInlineMenu('Main Menu')
 
-menu.urlButton('EdJoPaTo.de', 'https://edjopato.de')
-
-let mainMenuToggle = false
-menu.toggle('toggle me', 'a', {
-  setFunc: (_ctx, newVal) => {
-    mainMenuToggle = newVal
-  },
-  isSetFunc: () => mainMenuToggle
-})
+// let mainMenuToggle = false
+// menu.toggle('toggle me', 'a', {
+//   setFunc: (_ctx, newVal) => {
+//     mainMenuToggle = newVal
+//   },
+//   isSetFunc: () => mainMenuToggle
+// })
 
 const foodMenu = new TelegrafInlineMenu('Тут было меню с едой')
 
@@ -75,7 +73,7 @@ foodMenu.question('Добавить людей', 'add', {
   }
 })
 
-menu.submenu('Food menu', 'food', foodMenu, {
+menu.submenu('Блюда', 'food', foodMenu, {
   hide: () => mainMenuToggle
 })
 
