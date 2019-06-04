@@ -169,7 +169,7 @@ function postListTrello(page,key,token,ctx) {
 function httpGet(url) {
 
   return new Promise(function(resolve, reject) {
-    var req = unirest("GET", url);
+    let req = unirest("GET", url);
     req.headers({
       "cache-control": "no-cache"
     });
@@ -184,26 +184,14 @@ function httpGet(url) {
 
 // FUNCTION POST
 function httpPost(url) {
+    let req = unirest("POST", url);
+    req.headers({
+      "cache-control": "no-cache"
+    });
 
-  return new Promise(function(resolve, reject) {
-    unirest.post(url)
-    .type('json')
-    .send({
-      name: 'name',
-      defaultLabels: 'true',
-      defaultLists: 'true',
-      keepFromSource: 'none',
-      prefs_permissionLevel: 'private',
-      prefs_voting: 'disabled',
-      prefs_comments: 'members',
-      prefs_invitations: 'members',
-      prefs_selfJoin: 'true',
-      prefs_cardCovers: 'true',
-      prefs_background: 'blue',
-      prefs_cardAging: 'regular'
-    })
-    .end(function (response) {
-      resolve(response.body);
-    })
-  });
+    req.end(function (res) {
+      if (res.error) throw new Error(res.error);
+      console.log(res.body);
+      return res.body;
+    });
 }
