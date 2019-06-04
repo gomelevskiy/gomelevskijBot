@@ -66,20 +66,6 @@ trelloMenu.question('Добавить список 1 [в разработке]',
   }
 })
 
-trelloMenu.question('Добавить список 2 [в разработке]', 'add', {
-  questionText: 'Новый пункт в список 2',
-  setFunc: (_ctx, key) => {
-    people[key] = {}
-  }
-})
-
-trelloMenu.question('Добавить список 3 [в разработке]', 'add', {
-  questionText: 'Новый пункт в список 3',
-  setFunc: (_ctx, key) => {
-    people[key] = {}
-  }
-})
-
 menu.setCommand('start')
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
