@@ -62,10 +62,11 @@ trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
 trelloMenu.question('Добавить список [в разработке]', 'add', {
   questionText: 'Хотите добавить новый список в Trello?',
   setFunc: (_ctx, key) => {
-
+    people[key] = {}
   },
-  isSetFunc: (ctx, key) => {
+  isSetFunc: (_ctx, key) => {
     postListTrello(paramTrello.page,paramTrello.key,paramTrello.token, ctx)
+    return ctx.message.text;
   }
 })
 
