@@ -192,7 +192,7 @@ function httpPost(url) {
 
     })
     .end(function (response) {
-      console.log(response.body);
+      resolve(response.body);
     })
   });
 }
