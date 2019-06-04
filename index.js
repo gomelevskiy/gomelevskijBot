@@ -55,11 +55,19 @@ const trelloSelectSubmenu = new TelegrafInlineMenu(trelloSelectText)
 // создает меню с выбором списком и остальными пунктами, типа вернуться на главную
 trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
   textFunc: personButtonText,
-  columns: 2
+  columns: 3
 })
 
 // создает блок создания нового списка, добавляет в массив
 trelloMenu.question('Добавить список 1 [в разработке]', 'add', {
+  questionText: 'Новый пункт в список',
+  setFunc: (_ctx, key) => {
+    people[key] = {}
+  }
+})
+
+// создает блок создания нового списка, добавляет в массив
+trelloMenu.question('Добавить список 2 [в разработке]', 'add', {
   questionText: 'Новый пункт в список',
   setFunc: (_ctx, key) => {
     people[key] = {}
