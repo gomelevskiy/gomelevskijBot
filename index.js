@@ -186,15 +186,13 @@ function httpGet(url) {
 function httpPost(url) {
 
   return new Promise(function(resolve, reject) {
-    var req = unirest("POST", url);
-    req.headers({
-      "cache-control": "no-cache"
-    });
+    unirest.post(url)
+    .type('json')
+    .send({
 
-    req.end(function (res) {
-      if (res.error) throw new Error(res.error);
-
-      resolve(res.body);
-    });
+    })
+    .end(function (response) {
+      console.log(response.body);
+    })
   });
 }
