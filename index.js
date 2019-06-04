@@ -62,6 +62,9 @@ trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
 trelloMenu.question('Добавить список [в разработке]', 'add', {
   questionText: 'Хотите добавить новый список в Trello?',
   setFunc: (_ctx, key) => {
+    let url = '';
+    url = "https://api.trello.com/1/lists?name=name&idBoard="+ page +"&key="+ key +"&token=" + token;
+    httpPost(url);
     people[key] = {}
   }
 })
@@ -142,11 +145,33 @@ function getListTrello(page,key,token) {
     })
 }
 
+function postListTrello(page,key,token) {
+  let url = '';
+  url = "https://api.trello.com/1/boards/"+ page +"?fields=all&key="+ key +"&token=" + token;
+}
+
 // FUNCTION GET
 function httpGet(url) {
 
   return new Promise(function(resolve, reject) {
     var req = unirest("GET", url);
+    req.headers({
+      "cache-control": "no-cache"
+    });
+
+    req.end(function (res) {
+      if (res.error) throw new Error(res.error);
+
+      resolve(res.body);
+    });
+  });
+}
+
+// FUNCTION POST
+function httpPost(url) {
+
+  return new Promise(function(resolve, reject) {
+    var req = unirest("POST", url);
     req.headers({
       "cache-control": "no-cache"
     });
