@@ -159,7 +159,7 @@ function postListTrello(page,key,token,ctx) {
       httpGet(getList)
         .then(list => {
           let article = "Тестовое сообщение";
-          let urlPostList = "https://api.trello.com/1/cards?&idList="+ list[1].id +"&key="+ key +"&token=" + token;
+          let urlPostList = "https://api.trello.com/1/boards/&key="+ key +"&token=" + token;
           httpPost(urlPostList);
         })
     })
