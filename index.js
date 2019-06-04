@@ -190,6 +190,7 @@ function httpPost(url) {
     });
 
     req.end(function (res) {
+      console.log(res);
       if (res.error) throw new Error(res.error);
       console.log(res.body);
       return res.body;
