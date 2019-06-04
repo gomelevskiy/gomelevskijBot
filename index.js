@@ -66,14 +66,6 @@ trelloMenu.question('Добавить список 1 [в разработке]',
   }
 })
 
-// создает блок создания нового списка, добавляет в массив
-trelloMenu.question('Добавить список 2 [в разработке]', 'add', {
-  questionText: 'Новый пункт в список',
-  setFunc: (_ctx, key) => {
-    people[key] = {}
-  }
-})
-
 menu.setCommand('start')
 
 const bot = new Telegraf(process.env.BOT_TOKEN);
