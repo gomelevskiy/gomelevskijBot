@@ -159,7 +159,7 @@ function postListTrello(page,key,token,ctx) {
       httpGet(getList)
         .then(list => {
           let article = "Тестовое сообщение";
-          let urlPostList = "https://api.trello.com/1/cards?name="+ article +"&idList="+ list[1].id +"&key="+ key +"&token=" + token;
+          let urlPostList = "https://api.trello.com/1/cards?&idList="+ list[1].id +"&key="+ key +"&token=" + token;
           httpPost(urlPostList);
         })
     })
@@ -189,7 +189,18 @@ function httpPost(url) {
     unirest.post(url)
     .type('json')
     .send({
-
+      name: 'name',
+      defaultLabels: 'true',
+      defaultLists: 'true',
+      keepFromSource: 'none',
+      prefs_permissionLevel: 'private',
+      prefs_voting: 'disabled',
+      prefs_comments: 'members',
+      prefs_invitations: 'members',
+      prefs_selfJoin: 'true',
+      prefs_cardCovers: 'true',
+      prefs_background: 'blue',
+      prefs_cardAging: 'regular'
     })
     .end(function (response) {
       resolve(response.body);
