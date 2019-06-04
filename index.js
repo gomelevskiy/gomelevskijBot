@@ -148,9 +148,20 @@ function postListTrello(page,key,token,ctx) {
   url = "https://api.trello.com/1/boards/"+ page +"?fields=all&key="+ key +"&token=" + token;
 
   // get lists
-  httpPost(url)
+  httpGet(url)
     .then(response => {
-      return response;
+      return response.id;
+    })
+
+    .then(board => {
+      // lists arr
+      let getList = "https://api.trello.com/1/boards/"+ board +"/lists?key="+ key +"&token=" + token;
+      httpGet(getList)
+        .then(list => {
+          let article = "Тестовое сообщение";
+          let urlPostList = "https://api.trello.com/1/cards?name="+ article +"&idList="+ list[1].id +"&key="+ key +"&token=" + token;
+          httpPost(urlPostList);
+        })
     })
 }
 
