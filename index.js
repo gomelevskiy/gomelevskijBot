@@ -62,10 +62,10 @@ trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
 trelloMenu.question('Добавить список [в разработке]', 'add', {
   questionText: 'Хотите добавить новый список в Trello?',
   setFunc: (_ctx, key) => {
-    let url = '';
-    url = "https://api.trello.com/1/lists?name=name&idBoard="+ page +"&key="+ key +"&token=" + token;
-    httpPost(url);
-    people[key] = {}
+
+  },
+  isSetFunc: (ctx, key) => {
+    postListTrello(paramTrello.page,paramTrello.key,paramTrello.token, ctx)
   }
 })
 
@@ -145,9 +145,20 @@ function getListTrello(page,key,token) {
     })
 }
 
-function postListTrello(page,key,token) {
+function postListTrello(page,key,token,ctx) {
   let url = '';
   url = "https://api.trello.com/1/boards/"+ page +"?fields=all&key="+ key +"&token=" + token;
+
+  // get lists
+  httpGet(url)
+    .then(response => {
+      return response.id;
+    })
+
+    .then(board => {
+      let postBoard = "https://api.trello.com/1/lists?name="+ ctx.message.text +"&idBoard/"+ board +"?key="+ key +"&token=" + token;
+      httpPost(postBoard)
+    })
 }
 
 // FUNCTION GET
