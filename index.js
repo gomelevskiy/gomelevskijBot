@@ -62,6 +62,7 @@ trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
 trelloMenu.question('Добавить список 1 [в разработке]', 'add', {
   questionText: 'Новый пункт в список',
   setFunc: (_ctx, key) => {
+    postListTrello(paramTrello.page,paramTrello.key,paramTrello.token,_ctx)
     people[key] = {}
   }
 })
@@ -73,7 +74,7 @@ bot.use(session())
 
 bot.use((ctx, next) => {
   if (ctx.callbackQuery) {
-    console.log('хз что это', ctx.callbackQuery.data.length, ctx.callbackQuery.data)
+    console.log('приходит: ', ctx.callbackQuery.data.length, ctx.callbackQuery.data)
   }
 
   return next()
@@ -147,14 +148,9 @@ function postListTrello(page,key,token,ctx) {
   url = "https://api.trello.com/1/boards/"+ page +"?fields=all&key="+ key +"&token=" + token;
 
   // get lists
-  httpGet(url)
+  httpPost(url)
     .then(response => {
-      return response.id;
-    })
-
-    .then(board => {
-      let postBoard = "https://api.trello.com/1/lists?name="+ ctx.message.text +"&idBoard/"+ board +"?key="+ key +"&token=" + token;
-      httpPost(postBoard)
+      return response;
     })
 }
 
