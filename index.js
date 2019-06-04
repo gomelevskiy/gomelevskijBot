@@ -59,14 +59,24 @@ trelloMenu.selectSubmenu('p', () => Object.keys(people), trelloSelectSubmenu, {
 })
 
 // создает блок создания нового списка, добавляет в массив
-trelloMenu.question('Добавить список [в разработке]', 'add', {
-  questionText: 'Хотите добавить новый список в Trello?',
+trelloMenu.question('Добавить список 1 [в разработке]', 'add', {
+  questionText: 'Новый пункт в список',
   setFunc: (_ctx, key) => {
     people[key] = {}
-  },
-  isSetFunc: (_ctx, key) => {
-    postListTrello(paramTrello.page,paramTrello.key,paramTrello.token, ctx)
-    return ctx.message.text;
+  }
+})
+
+trelloMenu.question('Добавить список 2 [в разработке]', 'add', {
+  questionText: 'Новый пункт в список',
+  setFunc: (_ctx, key) => {
+    people[key] = {}
+  }
+})
+
+trelloMenu.question('Добавить список 3 [в разработке]', 'add', {
+  questionText: 'Новый пункт в список',
+  setFunc: (_ctx, key) => {
+    people[key] = {}
   }
 })
 
